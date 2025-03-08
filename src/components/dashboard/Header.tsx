@@ -1,13 +1,14 @@
 
-import { Menu, Bell, Search } from 'lucide-react';
+import { Menu, Bell, Search, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import UserProfile from './UserProfile';
 
 interface HeaderProps {
   toggleMobileMenu: () => void;
+  toggleSidebar: () => void;
 }
 
-const Header = ({ toggleMobileMenu }: HeaderProps) => {
+const Header = ({ toggleMobileMenu, toggleSidebar }: HeaderProps) => {
   return (
     <header className="bg-white shadow dark:bg-slate-900">
       <div className="flex h-16 items-center justify-between px-4">
@@ -17,6 +18,12 @@ const Header = ({ toggleMobileMenu }: HeaderProps) => {
             className="rounded-md p-1.5 text-gray-400 hover:bg-gray-100 lg:hidden dark:hover:bg-slate-800"
           >
             <Menu className="h-6 w-6" />
+          </button>
+          <button
+            onClick={toggleSidebar}
+            className="hidden rounded-md p-1.5 text-gray-400 hover:bg-gray-100 lg:flex dark:hover:bg-slate-800"
+          >
+            <ChevronRight className="h-5 w-5" />
           </button>
           <div className="ml-4">
             <h1 className="text-xl font-semibold text-gray-800 dark:text-white">ダッシュボード</h1>

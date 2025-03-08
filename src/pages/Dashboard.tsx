@@ -2,13 +2,14 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { useTheme } from '@/hooks/use-theme';
 import Sidebar from '@/components/dashboard/Sidebar';
 import Header from '@/components/dashboard/Header';
 import WelcomeScreen from '@/components/dashboard/WelcomeScreen';
 import DashboardContent from '@/components/dashboard/DashboardContent';
 
 const Dashboard = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Default to closed
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [firstVisit, setFirstVisit] = useState(true);
   const [userName, setUserName] = useState('ゲスト');
@@ -57,7 +58,7 @@ const Dashboard = () => {
       )}
 
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Header toggleMobileMenu={toggleMobileMenu} />
+        <Header toggleMobileMenu={toggleMobileMenu} toggleSidebar={toggleSidebar} />
 
         {firstVisit && (
           <WelcomeScreen userName={userName} dismissWelcomeScreen={dismissWelcomeScreen} />
