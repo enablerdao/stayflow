@@ -1,8 +1,8 @@
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
-import { Home, Upload, Check, AlertCircle } from 'lucide-react';
+import { Home, Upload, Check, AlertCircle, FileText } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,9 +15,12 @@ import Sidebar from '@/components/dashboard/Sidebar';
 const PropertyRegister = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [sidebarOpen, setSidebarOpen] = useState(false); // Changed to false by default
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bulkText, setBulkText] = useState('');
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
@@ -38,13 +41,45 @@ const PropertyRegister = () => {
     }, 1500);
   };
 
-  // File input handler
-  const handleFileButtonClick = () => {
-    // Type casting the element to HTMLInputElement which has the click() method
-    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.click();
+  // Process bulk text to extract property data
+  const processBulkText = () => {
+    if (!bulkText.trim()) {
+      toast({
+        title: "テキストが空です",
+        description: "物件情報を入力してください。",
+        variant: "destructive",
+        duration: 3000,
+      });
+      return;
     }
+
+    toast({
+      title: "テキスト処理中",
+      description: "入力されたテキストから物件情報を抽出しています...",
+      duration: 3000,
+    });
+    
+    // ここにLLMでテキスト処理の実装を追加する予定
+    // 今はダミー処理
+    console.log("Processing text:", bulkText);
+  };
+
+  // File input handlers
+  const handleFileButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const newFiles = Array.from(e.target.files);
+      setSelectedFiles(prev => [...prev, ...newFiles]);
+    }
+  };
+
+  const removeFile = (index: number) => {
+    setSelectedFiles(prev => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -66,6 +101,35 @@ const PropertyRegister = () => {
             <div className="mb-6 flex items-center">
               <Home className="mr-2 h-6 w-6 text-primary" />
               <h1 className="text-2xl font-bold">物件登録</h1>
+            </div>
+
+            <div className="rounded-lg border bg-card p-6 shadow-sm mb-6">
+              <h2 className="text-xl font-semibold mb-4">テキストからの一括入力</h2>
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="bulkText">
+                    物件情報をコピペしてください
+                    <span className="text-sm text-muted-foreground ml-2 font-normal">
+                      (サイト全体のコピーや不要な文字を含んでいても大丈夫です)
+                    </span>
+                  </Label>
+                  <Textarea 
+                    id="bulkText"
+                    value={bulkText}
+                    onChange={(e) => setBulkText(e.target.value)}
+                    placeholder="物件情報をここに貼り付けてください。他のサイトからの情報やフォーマットされていない情報も処理できます。"
+                    className="min-h-[300px] text-sm font-mono"
+                  />
+                </div>
+                <Button 
+                  type="button"
+                  onClick={processBulkText}
+                  className="w-full"
+                >
+                  <FileText className="mr-2 h-4 w-4" />
+                  テキストから物件情報を抽出する
+                </Button>
+              </div>
             </div>
 
             <div className="rounded-lg border bg-card p-6 shadow-sm">
@@ -173,10 +237,12 @@ const PropertyRegister = () => {
                           JPG, PNG, GIF (最大10MB)
                         </p>
                         <input
+                          ref={fileInputRef}
                           type="file"
                           className="hidden"
                           accept="image/*"
                           multiple
+                          onChange={handleFileChange}
                         />
                         <Button 
                           type="button" 
@@ -187,6 +253,34 @@ const PropertyRegister = () => {
                           ファイルを選択
                         </Button>
                       </div>
+
+                      {selectedFiles.length > 0 && (
+                        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                          {selectedFiles.map((file, index) => (
+                            <div key={index} className="relative">
+                              <div className="aspect-square rounded-md overflow-hidden border bg-background">
+                                <img
+                                  src={URL.createObjectURL(file)}
+                                  alt={`アップロード画像 ${index + 1}`}
+                                  className="h-full w-full object-cover"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => removeFile(index)}
+                                  className="absolute top-1 right-1 rounded-full bg-destructive p-1 text-white"
+                                  aria-label="削除"
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                  </svg>
+                                </button>
+                              </div>
+                              <p className="mt-1 text-xs truncate">{file.name}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                   
