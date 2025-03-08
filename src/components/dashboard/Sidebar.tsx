@@ -1,5 +1,6 @@
+
 import { useState } from 'react';
-import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Sun, Moon, Globe, Heart, MessageSquare, FileText, PlusCircle } from 'lucide-react';
+import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Sun, Moon, Globe, Heart, MessageSquare, FileText, PlusCircle, MessageSquarePlus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/Logo';
 import { useTheme } from '@/hooks/use-theme';
@@ -8,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import FadeIn from '@/components/animations/FadeIn';
 import { Link, useLocation } from 'react-router-dom';
 import LanguageSwitcher from '@/components/language/LanguageSwitcher';
+import { useFeedback } from '@/hooks/use-feedback';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -19,6 +21,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   const { theme, setTheme } = useTheme();
   const { t } = useLanguage();
   const location = useLocation();
+  const { openFeedback } = useFeedback();
   
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -37,6 +40,12 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   const bottomMenuItems = [
     { name: t('新規作成', 'Create New'), icon: PlusCircle, href: '#' },
     { name: t('設定', 'Settings'), icon: Settings, href: '#' },
+    { 
+      name: t('フィードバック', 'Feedback'), 
+      icon: MessageSquarePlus, 
+      onClick: openFeedback,
+      href: '#' 
+    },
   ];
   
   // Check if a menu item is active based on current path
@@ -70,13 +79,23 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
         
         {bottomMenuItems.map((item, index) => (
           <FadeIn key={item.name} direction="left" delay={(menuItems.length + index) * 50} duration={300}>
-            <Link
-              to={item.href === '#' ? '#' : item.href}
-              className="flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200"
-            >
-              <item.icon className="h-5 w-5 mr-3 text-primary dark:text-primary" />
-              <span>{item.name}</span>
-            </Link>
+            {item.onClick ? (
+              <button
+                onClick={item.onClick}
+                className="w-full flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200"
+              >
+                <item.icon className="h-5 w-5 mr-3 text-primary dark:text-primary" />
+                <span>{item.name}</span>
+              </button>
+            ) : (
+              <Link
+                to={item.href === '#' ? '#' : item.href}
+                className="flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200"
+              >
+                <item.icon className="h-5 w-5 mr-3 text-primary dark:text-primary" />
+                <span>{item.name}</span>
+              </Link>
+            )}
           </FadeIn>
         ))}
         
@@ -141,10 +160,17 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
                 isActive(item.href)
                   ? "bg-primary/10 text-primary"
                   : "text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800",
-                !sidebarOpen && 'lg:justify-center lg:px-2'
+                !sidebarOpen && 'lg:justify-center lg:px-2',
+                item.name === t('お気に入り', 'Favorites') && "favorites-link"
               )}
             >
-              <item.icon className={cn('h-5 w-5 flex-shrink-0 text-primary dark:text-primary', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+              <item.icon 
+                className={cn(
+                  'h-5 w-5 flex-shrink-0 text-primary dark:text-primary', 
+                  sidebarOpen ? 'mr-3' : 'lg:mr-0',
+                  item.name === t('お気に入り', 'Favorites') && "heart-icon"
+                )} 
+              />
               <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
                 {item.name}
               </span>
@@ -154,19 +180,35 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
           
         <div className="mb-6 px-3 space-y-1.5">
           {bottomMenuItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.href === '#' ? '#' : item.href}
-              className={cn(
-                "group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200",
-                !sidebarOpen && 'lg:justify-center lg:px-2'
+            <div key={item.name}>
+              {item.onClick ? (
+                <button
+                  onClick={item.onClick}
+                  className={cn(
+                    "w-full group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200",
+                    !sidebarOpen && 'lg:justify-center lg:px-2'
+                  )}
+                >
+                  <item.icon className={cn('h-5 w-5 flex-shrink-0 text-primary dark:text-primary', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+                  <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
+                    {item.name}
+                  </span>
+                </button>
+              ) : (
+                <Link
+                  to={item.href === '#' ? '#' : item.href}
+                  className={cn(
+                    "group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200",
+                    !sidebarOpen && 'lg:justify-center lg:px-2'
+                  )}
+                >
+                  <item.icon className={cn('h-5 w-5 flex-shrink-0 text-primary dark:text-primary', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+                  <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
+                    {item.name}
+                  </span>
+                </Link>
               )}
-            >
-              <item.icon className={cn('h-5 w-5 flex-shrink-0 text-primary dark:text-primary', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
-              <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
-                {item.name}
-              </span>
-            </Link>
+            </div>
           ))}
           
           {/* ダークモード切替 */}

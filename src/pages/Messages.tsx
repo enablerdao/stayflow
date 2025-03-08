@@ -7,7 +7,7 @@ import { useLanguage } from '@/hooks/use-language';
 import MessagesContent from '@/components/messages/MessagesContent';
 import FadeIn from '@/components/animations/FadeIn';
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Info } from 'lucide-react';
+import { Info, X } from 'lucide-react';
 
 const Messages = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -45,7 +45,7 @@ const Messages = () => {
                 className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors duration-200"
                 aria-label={t('閉じる', 'Close')}
               >
-                <Info className="h-5 w-5" />
+                <X className="h-5 w-5" />
               </button>
             </div>
             <FadeIn direction="left" duration={400} delay={150}>
