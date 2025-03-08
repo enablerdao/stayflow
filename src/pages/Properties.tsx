@@ -5,7 +5,7 @@ import { useLanguage } from '@/hooks/use-language';
 import { useMobileView } from '@/hooks/use-mobile';
 import Header from '@/components/dashboard/Header';
 import Sidebar from '@/components/dashboard/Sidebar';
-import { PlusCircle, Building, MapPin, Calendar, Yen } from 'lucide-react';
+import { PlusCircle, Building, MapPin, Calendar, JapaneseYen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -169,7 +169,7 @@ const Properties = () => {
                       </CardContent>
                       <CardFooter className="flex justify-between pt-2 border-t">
                         <div className="flex items-center">
-                          <Yen className="mr-1 h-4 w-4 text-green-600" />
+                          <JapaneseYen className="mr-1 h-4 w-4 text-green-600" />
                           <span className="font-semibold text-green-600">
                             {formatPrice(property.price)}
                           </span>
