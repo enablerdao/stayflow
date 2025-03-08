@@ -11,6 +11,7 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Reservations from "./pages/Reservations";
 import PropertyRegister from "./pages/PropertyRegister";
+import Properties from "./pages/Properties";
 import Customers from "./pages/Customers";
 import Messages from "./pages/Messages";
 import Reports from "./pages/Reports";
@@ -34,6 +35,7 @@ const App = () => (
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/reservations" element={<Reservations />} />
                 <Route path="/property/register" element={<PropertyRegister />} />
+                <Route path="/properties" element={<Properties />} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/reports" element={<Reports />} />

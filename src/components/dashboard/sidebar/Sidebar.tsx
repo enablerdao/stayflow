@@ -1,5 +1,6 @@
+
 import { useState } from 'react';
-import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Sun, Moon, MessageSquare, FileText, PlusCircle, MessageSquarePlus, Building } from 'lucide-react';
+import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Sun, Moon, MessageSquare, FileText, Building } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/Logo';
 import { useTheme } from '@/hooks/use-theme';
@@ -23,14 +24,9 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   const { t } = useLanguage();
   const location = useLocation();
   const { openFeedback } = useFeedback();
-  const [propertyMenuOpen, setPropertyMenuOpen] = useState(false);
   
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
-
-  const togglePropertyMenu = () => {
-    setPropertyMenuOpen(!propertyMenuOpen);
   };
 
   const menuItems = [
@@ -40,22 +36,14 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
     { name: t('メッセージ', 'Messages'), icon: MessageSquare, href: '/messages' },
     { name: t('レポート', 'Reports'), icon: FileText, href: '/reports' },
     { name: t('分析', 'Analytics'), icon: BarChart2, href: '/analytics' },
+    { name: t('物件管理', 'Properties'), icon: Building, href: '/properties' },
   ];
 
   const bottomMenuItems = [
-    { 
-      name: t('物件管理', 'Property Management'), 
-      icon: Building, 
-      href: '#',
-      hasSubmenu: true,
-      submenu: [
-        { name: t('新規作成', 'Create New'), icon: PlusCircle, href: '/property/register' },
-      ]
-    },
     { name: t('設定', 'Settings'), icon: Settings, href: '#' },
     { 
       name: t('フィードバック', 'Feedback'), 
-      icon: MessageSquarePlus, 
+      icon: MessageSquare, 
       onClick: openFeedback,
       href: '#' 
     },
@@ -64,12 +52,8 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   // Check if a menu item is active based on current path
   const isActive = (href: string) => {
     if (href === '#') return false;
+    if (href === '/properties' && location.pathname === '/property/register') return true;
     return location.pathname === href || location.pathname.startsWith(href);
-  };
-  
-  // Check if any submenu item is active
-  const isSubmenuActive = (submenu: any[]) => {
-    return submenu?.some(item => isActive(item.href));
   };
   
   // Use mobile layout for mobile view
@@ -79,7 +63,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
         menuItems={menuItems}
         bottomMenuItems={bottomMenuItems}
         isActive={isActive}
-        isSubmenuActive={isSubmenuActive}
+        isSubmenuActive={() => false}
       />
     );
   }
@@ -117,36 +101,21 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
               href={item.href}
               isActive={isActive(item.href)}
               sidebarOpen={sidebarOpen}
-              className={item.name === t('お気に入り', 'Favorites') ? "favorites-link" : ""}
             />
           ))}
         </nav>
           
         <div className="mb-6 px-3 space-y-1.5">
           {bottomMenuItems.map((item) => (
-            <div key={item.name}>
-              {item.hasSubmenu ? (
-                <SidebarSubmenu
-                  name={item.name}
-                  icon={item.icon}
-                  submenu={item.submenu}
-                  isOpen={propertyMenuOpen}
-                  toggleMenu={togglePropertyMenu}
-                  sidebarOpen={sidebarOpen}
-                  isActive={isActive}
-                  isSubmenuActive={isSubmenuActive(item.submenu)}
-                />
-              ) : (
-                <SidebarMenuItem
-                  name={item.name}
-                  icon={item.icon}
-                  href={item.href}
-                  isActive={isActive(item.href)}
-                  sidebarOpen={sidebarOpen}
-                  onClick={item.onClick}
-                />
-              )}
-            </div>
+            <SidebarMenuItem
+              key={item.name}
+              name={item.name}
+              icon={item.icon}
+              href={item.href}
+              isActive={isActive(item.href)}
+              sidebarOpen={sidebarOpen}
+              onClick={item.onClick}
+            />
           ))}
           
           {/* Theme toggle */}
