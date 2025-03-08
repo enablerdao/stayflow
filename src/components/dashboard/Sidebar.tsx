@@ -1,9 +1,10 @@
 
 import { useState } from 'react';
-import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Sun, Moon } from 'lucide-react';
+import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Sun, Moon, Globe, Heart, MessageSquare, FileText, PlusCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/Logo';
 import { useTheme } from '@/hooks/use-theme';
+import { Button } from '@/components/ui/button';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -12,25 +13,41 @@ interface SidebarProps {
 
 const Sidebar = ({ sidebarOpen, toggleSidebar }: SidebarProps) => {
   const { theme, setTheme } = useTheme();
+  const [language, setLanguage] = useState('ja');
   
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
+  const menuItems = [
+    { name: 'ホーム', icon: Home, href: '/dashboard' },
+    { name: 'お客様管理', icon: User, href: '#' },
+    { name: '予約管理', icon: Calendar, href: '#' },
+    { name: 'メッセージ', icon: MessageSquare, href: '#' },
+    { name: 'お気に入り', icon: Heart, href: '#' },
+    { name: 'レポート', icon: FileText, href: '#' },
+    { name: '分析', icon: BarChart2, href: '#' },
+  ];
+
+  const bottomMenuItems = [
+    { name: '新規作成', icon: PlusCircle, href: '#' },
+    { name: '設定', icon: Settings, href: '#' },
+  ];
+  
   return (
     <aside
       className={cn(
-        'fixed inset-y-0 left-0 z-40 h-full w-64 bg-white shadow-md transition-all duration-300 lg:static dark:bg-slate-900',
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:w-20 lg:translate-x-0'
+        'fixed inset-y-0 left-0 z-30 h-full bg-white shadow-sm transition-all duration-300 lg:static dark:bg-slate-900 dark:border-r dark:border-slate-800',
+        sidebarOpen ? 'w-64 translate-x-0' : '-translate-x-full lg:w-20 lg:translate-x-0'
       )}
     >
-      <div className="flex h-16 items-center justify-between px-4">
+      <div className="flex h-16 items-center justify-between px-4 border-b dark:border-slate-800">
         <div className={cn('transition-all duration-300', !sidebarOpen && 'lg:opacity-0')}>
           <Logo size="sm" />
         </div>
         <button
           onClick={toggleSidebar}
-          className="hidden rounded-md p-1.5 text-gray-400 hover:bg-gray-100 lg:block dark:hover:bg-slate-800"
+          className="hidden rounded-md p-1.5 text-gray-500 hover:bg-gray-100 lg:block dark:text-gray-300 dark:hover:bg-slate-800"
           aria-label="サイドバーを切り替える"
         >
           <ChevronLeft
@@ -38,47 +55,79 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: SidebarProps) => {
           />
         </button>
       </div>
-      <nav className="mt-6 space-y-1 px-2">
-        {[
-          { name: 'ホーム', icon: Home, href: '/dashboard' },
-          { name: 'お客様管理', icon: User, href: '#' },
-          { name: '予約管理', icon: Calendar, href: '#' },
-          { name: '分析', icon: BarChart2, href: '#' },
-          { name: '設定', icon: Settings, href: '#' },
-        ].map((item) => (
-          <a
-            key={item.name}
-            href={item.href}
+      
+      <div className="flex flex-col justify-between h-[calc(100%-4rem)]">
+        <nav className="mt-6 px-3 space-y-1.5">
+          {menuItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className={cn(
+                'group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800',
+                !sidebarOpen && 'lg:justify-center lg:px-2'
+              )}
+            >
+              <item.icon className={cn('h-5 w-5 flex-shrink-0', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+              <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
+                {item.name}
+              </span>
+            </a>
+          ))}
+        </nav>
+          
+        <div className="mb-6 px-3 space-y-1.5">
+          {bottomMenuItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className={cn(
+                'group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800',
+                !sidebarOpen && 'lg:justify-center lg:px-2'
+              )}
+            >
+              <item.icon className={cn('h-5 w-5 flex-shrink-0', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+              <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
+                {item.name}
+              </span>
+            </a>
+          ))}
+          
+          {/* ダークモード切替 */}
+          <Button
+            onClick={toggleTheme}
+            variant="ghost"
             className={cn(
-              'group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-600 hover:bg-primary/10 hover:text-primary dark:text-gray-300',
-              !sidebarOpen && 'lg:justify-center'
+              'w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800',
+              !sidebarOpen && 'lg:justify-center lg:px-2'
             )}
           >
-            <item.icon className="mr-3 h-5 w-5 flex-shrink-0 lg:mr-0" />
+            {theme === 'dark' ? (
+              <Sun className={cn('h-5 w-5 flex-shrink-0', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+            ) : (
+              <Moon className={cn('h-5 w-5 flex-shrink-0', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+            )}
             <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
-              {item.name}
+              {theme === 'dark' ? 'ライトモード' : 'ダークモード'}
             </span>
-          </a>
-        ))}
-        
-        {/* Dark Mode Toggle */}
-        <button
-          onClick={toggleTheme}
-          className={cn(
-            'group flex w-full items-center rounded-md px-2 py-2 text-sm font-medium text-gray-600 hover:bg-primary/10 hover:text-primary dark:text-gray-300',
-            !sidebarOpen && 'lg:justify-center'
-          )}
-        >
-          {theme === 'dark' ? (
-            <Sun className="mr-3 h-5 w-5 flex-shrink-0 lg:mr-0" />
-          ) : (
-            <Moon className="mr-3 h-5 w-5 flex-shrink-0 lg:mr-0" />
-          )}
-          <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
-            {theme === 'dark' ? 'ライトモード' : 'ダークモード'}
-          </span>
-        </button>
-      </nav>
+          </Button>
+          
+          {/* モバイル用の言語切替 */}
+          <div className="lg:hidden">
+            <Button
+              variant="ghost"
+              className={cn(
+                'w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800',
+                !sidebarOpen && 'lg:justify-center lg:px-2'
+              )}
+            >
+              <Globe className={cn('h-5 w-5 flex-shrink-0', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+              <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
+                言語設定
+              </span>
+            </Button>
+          </div>
+        </div>
+      </div>
     </aside>
   );
 };

@@ -1,7 +1,17 @@
 
-import { Menu, Bell, Search, ChevronRight } from 'lucide-react';
+import { Menu, Bell, Search, ChevronRight, Globe } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import UserProfile from './UserProfile';
+import { useTheme } from '@/hooks/use-theme';
+import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useState } from 'react';
 
 interface HeaderProps {
   toggleMobileMenu: () => void;
@@ -9,26 +19,33 @@ interface HeaderProps {
 }
 
 const Header = ({ toggleMobileMenu, toggleSidebar }: HeaderProps) => {
+  const { theme } = useTheme();
+  const [language, setLanguage] = useState('ja');
+
+  const handleLanguageChange = (value: string) => {
+    setLanguage(value);
+  };
+
   return (
-    <header className="bg-white shadow dark:bg-slate-900">
+    <header className="bg-white shadow-sm dark:bg-slate-900 border-b dark:border-slate-800">
       <div className="flex h-16 items-center justify-between px-4">
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
           <button
             onClick={toggleMobileMenu}
-            className="rounded-md p-1.5 text-gray-400 hover:bg-gray-100 lg:hidden dark:hover:bg-slate-800"
+            className="rounded-md p-1.5 text-gray-500 hover:bg-gray-100 lg:hidden dark:text-gray-300 dark:hover:bg-slate-800"
             aria-label="モバイルメニューを開く"
           >
-            <Menu className="h-6 w-6" />
+            <Menu className="h-5 w-5" />
           </button>
           <button
             onClick={toggleSidebar}
-            className="hidden rounded-md p-1.5 text-gray-400 hover:bg-gray-100 lg:flex dark:hover:bg-slate-800"
+            className="hidden rounded-md p-1.5 text-gray-500 hover:bg-gray-100 lg:flex dark:text-gray-300 dark:hover:bg-slate-800"
             aria-label="サイドバーを切り替える"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
-          <div className="ml-4">
-            <h1 className="text-xl font-semibold text-gray-800 dark:text-white">ダッシュボード</h1>
+          <div className="ml-2">
+            <h1 className="text-lg font-semibold text-gray-800 dark:text-white">ダッシュボード</h1>
           </div>
         </div>
         <div className="flex items-center space-x-4">
@@ -36,16 +53,33 @@ const Header = ({ toggleMobileMenu, toggleSidebar }: HeaderProps) => {
             <input
               type="text"
               placeholder="検索..."
-              className="w-64 rounded-md border border-gray-300 py-2 pl-10 pr-4 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+              className="h-9 w-64 rounded-md border border-gray-300 py-2 pl-9 pr-4 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             />
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
           </div>
-          <button 
-            className="rounded-full bg-gray-100 p-1.5 text-gray-600 hover:bg-gray-200 dark:bg-slate-800 dark:text-gray-300 dark:hover:bg-slate-700"
+          
+          {/* 言語選択 */}
+          <div className="hidden md:flex">
+            <Select value={language} onValueChange={handleLanguageChange}>
+              <SelectTrigger className="w-[90px] h-9 bg-transparent border-gray-300 dark:border-slate-700">
+                <SelectValue placeholder="言語" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="ja">日本語</SelectItem>
+                <SelectItem value="en">English</SelectItem>
+                <SelectItem value="zh">中文</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <Button 
+            variant="ghost" 
+            size="icon"
+            className="rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-slate-800 dark:text-gray-300 dark:hover:bg-slate-700"
             aria-label="通知"
           >
             <Bell className="h-5 w-5" />
-          </button>
+          </Button>
           <UserProfile />
         </div>
       </div>
