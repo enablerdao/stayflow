@@ -16,6 +16,7 @@ const Dashboard = () => {
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   useEffect(() => {
     // デバッグ中は毎回ウェルカム画面を表示する
@@ -50,11 +51,11 @@ const Dashboard = () => {
       {/* サイドバー */}
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-      {/* モバイルメニューのオーバーレイ */}
+      {/* モバイルメニューのオーバーレイ - モバイルのみ表示 */}
       {mobileMenuOpen && (
         <div 
           className="fixed inset-0 z-[100] bg-black/50 lg:hidden" 
-          onClick={toggleMobileMenu}
+          onClick={closeMobileMenu}
         >
           {/* モバイルメニューの中身 */}
           <div 
@@ -64,33 +65,14 @@ const Dashboard = () => {
             <div className="flex justify-between items-center h-16 px-4 border-b dark:border-slate-800">
               <h2 className="text-lg font-semibold">メニュー</h2>
               <button 
-                onClick={toggleMobileMenu}
+                onClick={closeMobileMenu}
                 className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-slate-800"
                 aria-label="閉じる"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <nav className="p-4 space-y-1.5">
-              <a href="#" className="flex items-center gap-3 py-2.5 px-3 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md text-sm font-medium">
-                <span>ホーム</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 py-2.5 px-3 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md text-sm font-medium">
-                <span>お客様管理</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 py-2.5 px-3 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md text-sm font-medium">
-                <span>予約管理</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 py-2.5 px-3 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md text-sm font-medium">
-                <span>メッセージ</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 py-2.5 px-3 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md text-sm font-medium">
-                <span>分析</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 py-2.5 px-3 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md text-sm font-medium">
-                <span>設定</span>
-              </a>
-            </nav>
+            <Sidebar sidebarOpen={true} toggleSidebar={toggleSidebar} mobileView={true} />
           </div>
         </div>
       )}

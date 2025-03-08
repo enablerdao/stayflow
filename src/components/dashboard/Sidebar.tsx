@@ -9,9 +9,10 @@ import { Button } from '@/components/ui/button';
 interface SidebarProps {
   sidebarOpen: boolean;
   toggleSidebar: () => void;
+  mobileView?: boolean;
 }
 
-const Sidebar = ({ sidebarOpen, toggleSidebar }: SidebarProps) => {
+const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProps) => {
   const { theme, setTheme } = useTheme();
   const [language, setLanguage] = useState('ja');
   
@@ -33,6 +34,51 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: SidebarProps) => {
     { name: '新規作成', icon: PlusCircle, href: '#' },
     { name: '設定', icon: Settings, href: '#' },
   ];
+  
+  // モバイルビューの場合は別のレイアウトを使用
+  if (mobileView) {
+    return (
+      <nav className="px-3 py-4 space-y-1.5">
+        {menuItems.map((item) => (
+          <a
+            key={item.name}
+            href={item.href}
+            className="flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800"
+          >
+            <item.icon className="h-5 w-5 mr-3" />
+            <span>{item.name}</span>
+          </a>
+        ))}
+        
+        <div className="my-3 border-t dark:border-slate-800"></div>
+        
+        {bottomMenuItems.map((item) => (
+          <a
+            key={item.name}
+            href={item.href}
+            className="flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800"
+          >
+            <item.icon className="h-5 w-5 mr-3" />
+            <span>{item.name}</span>
+          </a>
+        ))}
+        
+        {/* ダークモード切替 */}
+        <Button
+          onClick={toggleTheme}
+          variant="ghost"
+          className="w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800"
+        >
+          {theme === 'dark' ? (
+            <Sun className="h-5 w-5 mr-3" />
+          ) : (
+            <Moon className="h-5 w-5 mr-3" />
+          )}
+          <span>{theme === 'dark' ? 'ライトモード' : 'ダークモード'}</span>
+        </Button>
+      </nav>
+    );
+  }
   
   return (
     <aside
