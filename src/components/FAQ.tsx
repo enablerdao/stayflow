@@ -48,24 +48,24 @@ const FAQ = () => {
 
   const faqItems = [
     {
-      question: "Who is this service for?",
-      answer: "StayFlow is designed for vacation rental hosts, property managers, and anyone managing short-term rental properties. Whether you have a single property or manage hundreds, our platform scales to meet your needs and helps streamline operations."
+      question: "このサービスはどんな人向けですか？",
+      answer: "StayFlowは民泊ホスト、プロパティマネージャー、短期賃貸物件を管理する全ての方向けに設計されています。一つの物件から数百の物件まで、あなたのニーズに合わせて拡張し、運営を効率化します。"
     },
     {
-      question: "How long does it take to get started?",
-      answer: "You can sign up and start using StayFlow within minutes. Simply enter the necessary information, and you'll have immediate access to all the platform's features. Our intuitive interface ensures a smooth onboarding experience."
+      question: "利用開始までどのくらいの時間がかかりますか？",
+      answer: "数分でサインアップして利用を開始できます。必要な情報を入力するだけで、すぐにプラットフォームのすべての機能にアクセスできます。直感的なインターフェースで、スムーズなオンボーディング体験を保証します。"
     },
     {
-      question: "Is there a free trial available?",
-      answer: "Yes, we offer a 14-day free trial with no credit card required. You can experience all features of our platform to determine if it's the right fit for your vacation rental business before making a commitment."
+      question: "無料トライアルはありますか？",
+      answer: "はい、クレジットカード不要の14日間無料トライアルをご提供しています。お申し込み前に、民泊ビジネスに合っているかどうかを確認するために、プラットフォームのすべての機能を体験できます。"
     },
     {
-      question: "Can I integrate with my existing booking platforms?",
-      answer: "Absolutely! StayFlow seamlessly integrates with major booking platforms like Airbnb, Booking.com, VRBO, and others. All your reservations will be automatically synchronized in one centralized calendar."
+      question: "既存の予約プラットフォームと連携できますか？",
+      answer: "もちろんです！StayFlowはAirbnb、Booking.com、VRBOなどの主要な予約プラットフォームとシームレスに連携します。全ての予約が自動的に一元化されたカレンダーに同期されます。"
     },
     {
-      question: "How does the cleaning service integration work?",
-      answer: "Our platform automatically schedules cleaning services after guest checkout based on your preferences. You can work with your existing cleaning providers or connect with our network of verified cleaning services in your area."
+      question: "清掃サービスの連携はどのように機能しますか？",
+      answer: "当プラットフォームは、お客様の設定に基づいてゲストのチェックアウト後に自動的に清掃サービスをスケジュールします。既存の清掃業者と協力するか、エリア内の検証済み清掃サービスネットワークに接続することができます。"
     }
   ];
 
@@ -75,13 +75,13 @@ const FAQ = () => {
         <FadeIn>
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-stayflow-100 text-stayflow-800 mb-4">
-              FAQ
+              よくある質問
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Frequently Asked Questions
+              よくあるご質問
             </h2>
             <p className="text-lg text-muted-foreground">
-              Find answers to common questions about StayFlow
+              StayFlowに関するよくある質問への回答
             </p>
           </div>
         </FadeIn>
@@ -103,12 +103,12 @@ const FAQ = () => {
           </div>
 
           <FadeIn delay={300} className="mt-10 text-center">
-            <p className="mb-4 text-muted-foreground">Still have questions?</p>
+            <p className="mb-4 text-muted-foreground">まだ質問がありますか？</p>
             <a
               href="#contact"
               className="inline-flex items-center font-medium text-primary hover:text-primary/80 transition-colors"
             >
-              Contact our support team for assistance →
+              サポートチームにお問い合わせください →
             </a>
           </FadeIn>
         </div>

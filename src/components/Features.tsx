@@ -6,26 +6,26 @@ const Features = () => {
   const features = [
     {
       icon: <Calendar size={32} className="text-stayflow-600" />,
-      title: "Reservation Management",
-      description: "Centralize bookings from Airbnb and other platforms. Automatic schedule coordination.",
+      title: "予約一元管理",
+      description: "Airbnbなど複数サイトの予約を一括管理。スケジュール調整も自動化。",
       delay: 100
     },
     {
       icon: <Bookmark size={32} className="text-stayflow-600" />,
-      title: "Cleaning Management",
-      description: "Automatically schedule cleaning services after checkout. Thorough quality assurance.",
+      title: "清掃管理システム",
+      description: "チェックアウト後の清掃予約を自動で手配。品質チェックも徹底。",
       delay: 200
     },
     {
       icon: <MessageCircle size={32} className="text-stayflow-600" />,
-      title: "Guest Communication",
-      description: "Multilingual chatbot for 24/7 automated responses. Specialist support for emergencies.",
+      title: "ゲスト対応機能",
+      description: "多言語対応のチャットボットで24時間自動応答。緊急時は専門スタッフが対応。",
       delay: 300
     },
     {
       icon: <BarChart3 size={32} className="text-stayflow-600" />,
-      title: "Financial Analysis",
-      description: "Analyze income, occupancy rates, and guest satisfaction. Get tailored improvement suggestions.",
+      title: "収支分析",
+      description: "物件ごとの収支状況、稼働率、顧客満足度などを分析し改善提案。",
       delay: 400
     }
   ];
@@ -36,13 +36,13 @@ const Features = () => {
         <FadeIn>
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-stayflow-100 text-stayflow-800 mb-4">
-              Key Features
+              主な機能
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Simplify Your Rental Management
+              民泊運営管理をシンプルに
             </h2>
             <p className="text-lg text-muted-foreground">
-              Our comprehensive platform provides all the tools you need to streamline your vacation rental business
+              民泊ビジネスを効率化するために必要なツールを全て提供する包括的なプラットフォーム
             </p>
           </div>
         </FadeIn>
@@ -66,12 +66,12 @@ const Features = () => {
             <div className="absolute top-0 right-0 w-64 h-64 bg-stayflow-100 rounded-full filter blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2"></div>
             
             <div className="relative z-10 max-w-3xl">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to streamline your property management?</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">物件管理を効率化する準備はできていますか？</h3>
               <p className="text-lg text-muted-foreground mb-8">
-                Join hundreds of successful hosts who have simplified their rental business with StayFlow
+                StayFlowで民泊ビジネスをシンプルにした数百の成功したホストに加わりましょう
               </p>
               <a href="#pricing" className="btn-primary inline-flex">
-                Get Started Today
+                今すぐ始める
               </a>
             </div>
           </div>

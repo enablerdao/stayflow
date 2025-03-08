@@ -4,27 +4,27 @@ import FadeIn from './animations/FadeIn';
 const Roadmap = () => {
   const milestones = [
     {
-      title: "Short-term Goals",
-      description: "Reach 100 registered hosts and 300 managed properties",
-      timeframe: "Next 6 months",
+      title: "短期目標",
+      description: "登録ホスト数100件、管理物件数300件達成",
+      timeframe: "今後6ヶ月",
       color: "bg-stayflow-100",
       borderColor: "border-stayflow-300",
       textColor: "text-stayflow-800",
       delay: 100
     },
     {
-      title: "Mid-term Goals",
-      description: "Expand market share and establish a solid user base",
-      timeframe: "1-2 years",
+      title: "中期目標",
+      description: "市場シェアの拡大とユーザー基盤の確立",
+      timeframe: "1-2年",
       color: "bg-stayflow-200",
       borderColor: "border-stayflow-400",
       textColor: "text-stayflow-800",
       delay: 200
     },
     {
-      title: "Long-term Vision",
-      description: "Establish industry leadership and expand internationally",
-      timeframe: "3-5 years",
+      title: "長期ビジョン",
+      description: "業界リーダーとしての地位確立と海外展開",
+      timeframe: "3-5年",
       color: "bg-stayflow-300",
       borderColor: "border-stayflow-500",
       textColor: "text-stayflow-900",
@@ -38,13 +38,13 @@ const Roadmap = () => {
         <FadeIn>
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-stayflow-100 text-stayflow-800 mb-4">
-              Development Roadmap
+              開発ロードマップ
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Our Vision for the Future
+              未来への展望
             </h2>
             <p className="text-lg text-muted-foreground">
-              See how we're planning to evolve and improve StayFlow over time
+              StayFlowが今後どのように進化・改善していくかをご紹介します
             </p>
           </div>
         </FadeIn>
@@ -67,15 +67,15 @@ const Roadmap = () => {
                       <>
                         <li className="flex items-start">
                           <span className="h-5 w-5 rounded-full bg-stayflow-100 flex-shrink-0 mr-2 mt-0.5"></span>
-                          <span>Enhance the user interface based on feedback</span>
+                          <span>フィードバックに基づいたUIの改善</span>
                         </li>
                         <li className="flex items-start">
                           <span className="h-5 w-5 rounded-full bg-stayflow-100 flex-shrink-0 mr-2 mt-0.5"></span>
-                          <span>Add integration with more booking platforms</span>
+                          <span>より多くの予約プラットフォームとの連携追加</span>
                         </li>
                         <li className="flex items-start">
                           <span className="h-5 w-5 rounded-full bg-stayflow-100 flex-shrink-0 mr-2 mt-0.5"></span>
-                          <span>Expand cleaning service partnerships</span>
+                          <span>清掃サービスパートナーシップの拡大</span>
                         </li>
                       </>
                     )}
@@ -84,15 +84,15 @@ const Roadmap = () => {
                       <>
                         <li className="flex items-start">
                           <span className="h-5 w-5 rounded-full bg-stayflow-200 flex-shrink-0 mr-2 mt-0.5"></span>
-                          <span>Launch mobile application</span>
+                          <span>モバイルアプリケーションのリリース</span>
                         </li>
                         <li className="flex items-start">
                           <span className="h-5 w-5 rounded-full bg-stayflow-200 flex-shrink-0 mr-2 mt-0.5"></span>
-                          <span>Implement advanced AI recommendations</span>
+                          <span>高度なAIレコメンデーションの実装</span>
                         </li>
                         <li className="flex items-start">
                           <span className="h-5 w-5 rounded-full bg-stayflow-200 flex-shrink-0 mr-2 mt-0.5"></span>
-                          <span>Develop comprehensive analytics dashboard</span>
+                          <span>総合的な分析ダッシュボードの開発</span>
                         </li>
                       </>
                     )}
@@ -101,15 +101,15 @@ const Roadmap = () => {
                       <>
                         <li className="flex items-start">
                           <span className="h-5 w-5 rounded-full bg-stayflow-300 flex-shrink-0 mr-2 mt-0.5"></span>
-                          <span>Expand to international markets</span>
+                          <span>国際市場への展開</span>
                         </li>
                         <li className="flex items-start">
                           <span className="h-5 w-5 rounded-full bg-stayflow-300 flex-shrink-0 mr-2 mt-0.5"></span>
-                          <span>Create an ecosystem of rental management tools</span>
+                          <span>民泊管理ツールのエコシステム構築</span>
                         </li>
                         <li className="flex items-start">
                           <span className="h-5 w-5 rounded-full bg-stayflow-300 flex-shrink-0 mr-2 mt-0.5"></span>
-                          <span>Develop industry-leading AI capabilities</span>
+                          <span>業界最先端のAI機能の開発</span>
                         </li>
                       </>
                     )}

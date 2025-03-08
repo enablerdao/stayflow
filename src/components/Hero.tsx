@@ -19,19 +19,19 @@ const Hero = () => {
           <div className="order-2 lg:order-1">
             <FadeIn direction="up" delay={100}>
               <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-stayflow-100 text-stayflow-800 mb-6">
-                Vacation Rental Management Simplified
+                民泊運営管理をシンプルに
               </span>
             </FadeIn>
             
             <FadeIn direction="up" delay={200}>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                Streamline Your <span className="text-stayflow-600">Rental Property</span> Management
+                <span className="text-stayflow-600">民泊物件</span>の管理を効率化
               </h1>
             </FadeIn>
             
             <FadeIn direction="up" delay={300}>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-lg">
-                All-in-one platform for vacation rental hosts. Manage bookings, cleaning, guest communication and more in one place.
+                民泊ホスト向けの総合プラットフォーム。予約、清掃、ゲスト対応などを一元管理できます。
               </p>
             </FadeIn>
             
@@ -41,13 +41,13 @@ const Hero = () => {
                   href="#features" 
                   className="btn-primary"
                 >
-                  Explore Features
+                  機能を見る
                 </a>
                 <a 
                   href="#pricing" 
                   className="btn-outline flex items-center justify-center gap-2"
                 >
-                  View Pricing <ArrowRight size={16} />
+                  料金を確認 <ArrowRight size={16} />
                 </a>
               </div>
             </FadeIn>
@@ -62,7 +62,7 @@ const Hero = () => {
                   ))}
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">300+</span> properties managed with StayFlow
+                  <span className="font-semibold text-foreground">300+</span> の物件がStayFlowで管理されています
                 </p>
               </div>
             </FadeIn>
@@ -77,8 +77,8 @@ const Hero = () => {
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white shadow-md flex items-center justify-center">
                       <div className="w-10 h-10 rounded-full bg-stayflow-500"></div>
                     </div>
-                    <h3 className="text-lg font-medium mb-2">StayFlow Dashboard</h3>
-                    <p className="text-sm text-muted-foreground">Streamlined management at your fingertips</p>
+                    <h3 className="text-lg font-medium mb-2">StayFlow ダッシュボード</h3>
+                    <p className="text-sm text-muted-foreground">効率的な管理を指先ひとつで</p>
                   </div>
                 </div>
               </div>

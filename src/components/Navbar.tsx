@@ -27,12 +27,12 @@ const Navbar = () => {
   const closeMenu = () => setIsOpen(false);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#features' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'FAQ', href: '#faq' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'ホーム', href: '#home' },
+    { name: 'サービス', href: '#features' },
+    { name: '料金', href: '#pricing' },
+    { name: 'お客様の声', href: '#testimonials' },
+    { name: 'よくある質問', href: '#faq' },
+    { name: 'お問い合わせ', href: '#contact' },
   ];
 
   return (
@@ -69,7 +69,7 @@ const Navbar = () => {
               href="#contact"
               className="btn-primary"
             >
-              Get Started
+              はじめる
             </a>
           </div>
 
@@ -103,7 +103,7 @@ const Navbar = () => {
             </a>
           ))}
           <a href="#contact" className="btn-primary mt-4" onClick={closeMenu}>
-            Get Started
+            はじめる
           </a>
         </div>
       </div>

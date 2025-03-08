@@ -11,18 +11,18 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2">
             <h2 className="text-2xl font-bold mb-4">StayFlow</h2>
             <p className="text-muted-foreground mb-6 max-w-md">
-              Transforming vacation rental management with innovative technology solutions that empower hosts and enhance guest experiences.
+              革新的なテクノロジーソリューションで民泊運営を変革し、ホストをエンパワーし、ゲスト体験を向上させます。
             </p>
             
             <form className="flex gap-2 mb-6 max-w-md">
               <input
                 type="email"
-                placeholder="Your email address"
+                placeholder="メールアドレス"
                 className="input-field flex-grow"
-                aria-label="Email address"
+                aria-label="メールアドレス"
               />
               <button type="submit" className="btn-primary flex items-center gap-1">
-                Subscribe <ArrowRight size={16} />
+                登録 <ArrowRight size={16} />
               </button>
             </form>
             
@@ -46,22 +46,22 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
+            <h3 className="font-semibold text-lg mb-4">クイックリンク</h3>
             <ul className="space-y-3">
-              <li><a href="#home" className="text-muted-foreground hover:text-foreground transition-colors">Home</a></li>
-              <li><a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a></li>
-              <li><a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</a></li>
-              <li><a href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">Testimonials</a></li>
-              <li><a href="#faq" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</a></li>
+              <li><a href="#home" className="text-muted-foreground hover:text-foreground transition-colors">ホーム</a></li>
+              <li><a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">機能</a></li>
+              <li><a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">料金</a></li>
+              <li><a href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">お客様の声</a></li>
+              <li><a href="#faq" className="text-muted-foreground hover:text-foreground transition-colors">よくある質問</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="font-semibold text-lg mb-4">Contact Us</h3>
+            <h3 className="font-semibold text-lg mb-4">お問い合わせ</h3>
             <ul className="space-y-3 text-muted-foreground">
-              <li>Tokyo, Japan</li>
+              <li>東京都</li>
               <li>contact@stayflowapp.com</li>
-              <li>+81 3-1234-5678</li>
+              <li>03-1234-5678</li>
             </ul>
             
             <div className="mt-6">
@@ -69,7 +69,7 @@ const Footer = () => {
                 href="#"
                 className="btn-outline"
               >
-                Contact Support
+                サポートへ連絡
               </a>
             </div>
           </div>
@@ -83,13 +83,13 @@ const Footer = () => {
             
             <div className="flex space-x-6">
               <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Privacy Policy
+                プライバシーポリシー
               </a>
               <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Terms of Service
+                利用規約
               </a>
               <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Sitemap
+                サイトマップ
               </a>
             </div>
           </div>

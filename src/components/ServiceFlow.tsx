@@ -6,29 +6,29 @@ const ServiceFlow = () => {
   const steps = [
     {
       number: "01",
-      title: "Data Collection",
-      description: "Securely gather user data",
+      title: "データ収集",
+      description: "ユーザーデータを安全に収集",
       icon: "📊",
       delay: 100
     },
     {
       number: "02",
-      title: "AI Analysis",
-      description: "Advanced algorithm processing",
+      title: "AI分析",
+      description: "高度なアルゴリズムで解析",
       icon: "🧠",
       delay: 200
     },
     {
       number: "03",
-      title: "Personalization",
-      description: "Individually optimized solutions",
+      title: "最適化",
+      description: "個別最適化された提案",
       icon: "✨",
       delay: 300
     },
     {
       number: "04",
-      title: "Value Delivery",
-      description: "Achieving concrete results",
+      title: "価値提供",
+      description: "具体的な成果を実現",
       icon: "🚀",
       delay: 400
     }
@@ -40,13 +40,13 @@ const ServiceFlow = () => {
         <FadeIn>
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-stayflow-100 text-stayflow-800 mb-4">
-              Our Process
+              サービスの流れ
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              How StayFlow Works
+              StayFlowの仕組み
             </h2>
             <p className="text-lg text-muted-foreground">
-              Our streamlined approach ensures maximum value for your vacation rental business
+              民泊ビジネスに最大の価値を提供する効率的なアプローチ
             </p>
           </div>
         </FadeIn>
@@ -75,10 +75,10 @@ const ServiceFlow = () => {
         <FadeIn delay={300} className="mt-20">
           <div className="bg-white rounded-2xl shadow-sm border border-border p-8 md:p-12">
             <div className="text-center max-w-3xl mx-auto">
-              <h3 className="text-2xl md:text-3xl font-bold mb-6">Continuous Improvement Cycle</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">継続的改善サイクル</h3>
               
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                {["Plan", "Execute", "Measure", "Improve"].map((phase, index) => (
+                {["計画", "実行", "測定", "改善"].map((phase, index) => (
                   <div key={index} className="relative">
                     <div className="bg-stayflow-50 rounded-full w-20 h-20 mx-auto flex items-center justify-center mb-4">
                       <span className="text-stayflow-700 font-bold">{index + 1}</span>
@@ -94,7 +94,7 @@ const ServiceFlow = () => {
               </div>
               
               <p className="text-muted-foreground">
-                StayFlow emphasizes continuous improvement. Based on user feedback, we constantly enhance service quality and develop new features to consistently deliver the best experience.
+                StayFlowは継続的な改善を重視しています。ユーザーフィードバックを元にサービスの品質向上と新機能の開発を行い、常に最高の体験を提供します。
               </p>
             </div>
           </div>

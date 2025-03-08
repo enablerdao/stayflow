@@ -5,49 +5,49 @@ import FadeIn from './animations/FadeIn';
 const Pricing = () => {
   const plans = [
     {
-      name: "Light",
+      name: "ライト",
       price: "19,800",
-      period: "month",
-      description: "Perfect for hosts just starting with a few properties",
+      period: "月",
+      description: "少数の物件で始めるホストに最適",
       features: [
-        "Up to 3 properties",
-        "Basic reservation management",
-        "Cleaning schedule management",
-        "Basic guest communication",
-        "Email support"
+        "3物件まで登録可能",
+        "予約管理基本機能",
+        "清掃スケジュール管理",
+        "基本的なゲスト対応機能",
+        "メールサポート"
       ],
       highlighted: false,
       delay: 100
     },
     {
-      name: "Standard",
+      name: "スタンダード",
       price: "39,800",
-      period: "month",
-      description: "Our most popular plan for growing rental businesses",
+      period: "月",
+      description: "成長中の民泊ビジネス向け人気プラン",
       features: [
-        "Up to 10 properties",
-        "Multi-platform reservation management",
-        "Cleaning service integration",
-        "AI chatbot for guest communication",
-        "Financial reporting",
-        "24/7 support access"
+        "10物件まで登録可能",
+        "予約一元管理（複数サイト対応）",
+        "清掃サービス連携",
+        "AIチャットボット対応",
+        "収支レポート機能",
+        "24時間サポート"
       ],
       highlighted: true,
       delay: 200
     },
     {
-      name: "Professional",
+      name: "プロフェッショナル",
       price: "99,800",
-      period: "month",
-      description: "Enterprise-grade solution for property management businesses",
+      period: "月",
+      description: "プロパティ管理ビジネス向けエンタープライズ級ソリューション",
       features: [
-        "Unlimited properties",
-        "Custom API integration",
-        "Dedicated account manager",
-        "AI revenue optimization",
-        "Fully automated operations",
-        "Custom branding options",
-        "Priority support"
+        "物件数無制限",
+        "カスタムAPI連携",
+        "専属アカウントマネージャー",
+        "収益最適化AI",
+        "完全自動化運用",
+        "ブランドカスタマイズ",
+        "優先サポート"
       ],
       highlighted: false,
       delay: 300
@@ -65,13 +65,13 @@ const Pricing = () => {
         <FadeIn>
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-stayflow-100 text-stayflow-800 mb-4">
-              Pricing Plans
+              料金プラン
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Choose the Perfect Plan for Your Business
+              あなたのビジネスに最適なプランを選択
             </h2>
             <p className="text-lg text-muted-foreground">
-              Transparent pricing with no hidden fees. All plans include our core platform features.
+              明瞭な料金設定で隠れた料金はありません。すべてのプランに基本機能が含まれています。
             </p>
           </div>
         </FadeIn>
@@ -88,7 +88,7 @@ const Pricing = () => {
               >
                 <div className="p-8 flex flex-col h-full">
                   <div className="mb-6">
-                    <h3 className="text-xl font-bold mb-2">{plan.name} Plan</h3>
+                    <h3 className="text-xl font-bold mb-2">{plan.name}プラン</h3>
                     <div className="flex items-end mb-4">
                       <span className="text-3xl font-bold">¥{plan.price}</span>
                       <span className={`ml-2 ${plan.highlighted ? 'text-white/80' : 'text-muted-foreground'}`}>/{plan.period}</span>
@@ -117,7 +117,7 @@ const Pricing = () => {
                         : 'bg-secondary text-foreground hover:bg-secondary/80'
                     }`}
                   >
-                    {plan.highlighted ? 'Get Started' : 'Subscribe'}
+                    {plan.highlighted ? 'はじめる' : '申し込む'}
                   </a>
                 </div>
               </div>
@@ -128,13 +128,13 @@ const Pricing = () => {
         <FadeIn delay={400}>
           <div className="mt-16 text-center">
             <p className="text-muted-foreground mb-4">
-              Need a custom solution for your specific requirements?
+              特定の要件に合わせたカスタムソリューションが必要ですか？
             </p>
             <a 
               href="#contact" 
               className="font-medium text-primary hover:text-primary/80 transition-colors"
             >
-              Contact us for custom enterprise pricing →
+              法人向けカスタム料金についてお問い合わせください →
             </a>
           </div>
         </FadeIn>
