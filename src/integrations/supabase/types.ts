@@ -36,6 +36,89 @@ export type Database = {
         }
         Relationships: []
       }
+      properties: {
+        Row: {
+          address: string
+          city: string
+          created_at: string
+          description: string | null
+          id: string
+          postal_code: string
+          prefecture: string
+          price: number
+          property_name: string
+          property_type: string
+          size: number
+          updated_at: string
+          user_id: string
+          year_built: number | null
+        }
+        Insert: {
+          address: string
+          city: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          postal_code: string
+          prefecture: string
+          price: number
+          property_name: string
+          property_type: string
+          size: number
+          updated_at?: string
+          user_id: string
+          year_built?: number | null
+        }
+        Update: {
+          address?: string
+          city?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          postal_code?: string
+          prefecture?: string
+          price?: number
+          property_name?: string
+          property_type?: string
+          size?: number
+          updated_at?: string
+          user_id?: string
+          year_built?: number | null
+        }
+        Relationships: []
+      }
+      property_images: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          property_id: string
+          storage_path: string
+        }
+        Insert: {
+          created_at?: string
+          display_order: number
+          id?: string
+          property_id: string
+          storage_path: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          property_id?: string
+          storage_path?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_images_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
