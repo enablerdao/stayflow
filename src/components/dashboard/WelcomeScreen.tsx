@@ -1,5 +1,6 @@
 
-import { Calendar, User, BarChart2, Settings, BookOpen, HelpCircle } from 'lucide-react';
+import { Calendar, User, BarChart2, Settings, BookOpen, HelpCircle, Home } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import FadeIn from '@/components/animations/FadeIn';
 
 interface WelcomeScreenProps {
@@ -9,7 +10,7 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen = ({ userName, dismissWelcomeScreen }: WelcomeScreenProps) => {
   return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
       <FadeIn 
         direction="up" 
         className="max-w-4xl rounded-lg bg-white p-8 shadow-2xl dark:bg-slate-800"
@@ -17,7 +18,7 @@ const WelcomeScreen = ({ userName, dismissWelcomeScreen }: WelcomeScreenProps) =
         <h2 className="mb-6 text-3xl font-bold text-primary">ようこそ、{userName}さん</h2>
         <p className="mb-6 text-lg text-gray-600 dark:text-gray-300">
           スティフローダッシュボードへようこそ。ここから全ての管理機能にアクセスできます。
-          このガイドでは、アプリケーションの基本的な機能を紹介します。
+          まずは物件の登録から始めましょう。
         </p>
         
         <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -41,34 +42,53 @@ const WelcomeScreen = ({ userName, dismissWelcomeScreen }: WelcomeScreenProps) =
         </div>
         
         <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">はじめに</h3>
+        
+        {/* 物件登録セクション - 新規追加 */}
+        <div className="mb-6 rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
+          <div className="mb-2 flex items-center">
+            <Home className="mr-2 h-5 w-5 text-blue-600 dark:text-blue-300" />
+            <h4 className="font-medium text-blue-800 dark:text-blue-300">物件を登録しましょう</h4>
+          </div>
+          <p className="mb-3 text-sm text-blue-700 dark:text-blue-200">
+            まずは物件情報を登録して、システムを使い始めましょう。物件の詳細情報、写真、設備などを入力できます。
+          </p>
+          <Link 
+            to="/property/register" 
+            className="inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+            onClick={dismissWelcomeScreen}
+          >
+            物件を登録する
+          </Link>
+        </div>
+        
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div className="rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
+          <div className="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
             <div className="mb-2 flex items-center">
-              <Settings className="mr-2 h-5 w-5 text-blue-600 dark:text-blue-300" />
-              <h4 className="font-medium text-blue-800 dark:text-blue-300">初期設定</h4>
+              <Settings className="mr-2 h-5 w-5 text-green-600 dark:text-green-300" />
+              <h4 className="font-medium text-green-800 dark:text-green-300">初期設定</h4>
             </div>
-            <p className="text-sm text-blue-700 dark:text-blue-200">
+            <p className="text-sm text-green-700 dark:text-green-200">
               まずはプロフィール設定を完了させて、システムをカスタマイズしましょう。
             </p>
           </div>
 
-          <div className="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
+          <div className="rounded-lg bg-purple-50 p-4 dark:bg-purple-900/20">
             <div className="mb-2 flex items-center">
-              <BookOpen className="mr-2 h-5 w-5 text-green-600 dark:text-green-300" />
-              <h4 className="font-medium text-green-800 dark:text-green-300">ガイド</h4>
+              <BookOpen className="mr-2 h-5 w-5 text-purple-600 dark:text-purple-300" />
+              <h4 className="font-medium text-purple-800 dark:text-purple-300">ガイド</h4>
             </div>
-            <p className="text-sm text-green-700 dark:text-green-200">
+            <p className="text-sm text-purple-700 dark:text-purple-200">
               詳細なユーザーガイドとチュートリアルで、機能の使い方を学びましょう。
             </p>
           </div>
         </div>
         
-        <div className="mb-6 rounded-lg bg-purple-50 p-4 dark:bg-purple-900/20">
+        <div className="mb-6 rounded-lg bg-amber-50 p-4 dark:bg-amber-900/20">
           <div className="mb-2 flex items-center">
-            <HelpCircle className="mr-2 h-5 w-5 text-purple-600 dark:text-purple-300" />
-            <h4 className="font-medium text-purple-800 dark:text-purple-300">サポート</h4>
+            <HelpCircle className="mr-2 h-5 w-5 text-amber-600 dark:text-amber-300" />
+            <h4 className="font-medium text-amber-800 dark:text-amber-300">サポート</h4>
           </div>
-          <p className="text-sm text-purple-700 dark:text-purple-200">
+          <p className="text-sm text-amber-700 dark:text-amber-200">
             質問がありましたら、いつでもサポートチームにお問い合わせください。24時間以内に返信いたします。
           </p>
         </div>

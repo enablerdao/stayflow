@@ -18,17 +18,17 @@ const Dashboard = () => {
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   useEffect(() => {
+    // localStorage.clear(); // デバッグ用：強制的にウェルカム画面を表示する場合はコメントを外す
     const hasVisitedBefore = localStorage.getItem('hasVisitedDashboard');
-    if (hasVisitedBefore) {
-      setFirstVisit(false);
-    } else {
+    
+    // デバッグ用コンソールログ
+    console.log("Has visited before:", hasVisitedBefore);
+    
+    if (!hasVisitedBefore) {
+      setFirstVisit(true);
       localStorage.setItem('hasVisitedDashboard', 'true');
-      
-      const timer = setTimeout(() => {
-        setFirstVisit(false);
-      }, 15000); // 延長して読む時間を確保
-      
-      return () => clearTimeout(timer);
+    } else {
+      setFirstVisit(false);
     }
   }, []);
 
