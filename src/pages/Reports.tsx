@@ -40,11 +40,13 @@ const Reports = () => {
       
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header 
-          title={t('レポート', 'Reports')} 
-          subtitle={t('物件のレポートを管理します', 'Manage your property reports')} 
-          sidebarOpen={sidebarOpen} 
+          toggleMobileMenu={toggleSidebar}
           toggleSidebar={toggleSidebar}
         />
+        <div className="p-4 md:p-6">
+          <h1 className="text-2xl font-bold">{t('レポート', 'Reports')}</h1>
+          <p className="text-muted-foreground">{t('物件のレポートを管理します', 'Manage your property reports')}</p>
+        </div>
         
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
           <div className="mx-auto max-w-6xl space-y-6">
