@@ -13,6 +13,8 @@ import Reservations from "./pages/Reservations";
 import PropertyRegister from "./pages/PropertyRegister";
 import Customers from "./pages/Customers";
 import Messages from "./pages/Messages";
+import Reports from "./pages/Reports";
+import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
 import FeedbackButton from "./components/feedback/FeedbackButton";
 
@@ -34,6 +36,8 @@ const App = () => (
                 <Route path="/property/register" element={<PropertyRegister />} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/messages" element={<Messages />} />
+                <Route path="/reports" element={<Reports />} />
+                <Route path="/analytics" element={<Analytics />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
