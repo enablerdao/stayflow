@@ -7,7 +7,6 @@ import Testimonials from '@/components/Testimonials';
 import ServiceFlow from '@/components/ServiceFlow';
 import FAQ from '@/components/FAQ';
 import Roadmap from '@/components/Roadmap';
-import InfoSection from '@/components/InfoSection';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -19,7 +18,6 @@ const Index = () => {
       <ServiceFlow />
       <Pricing />
       <Testimonials />
-      <InfoSection />
       <Roadmap />
       <FAQ />
       <Footer />
