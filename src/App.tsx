@@ -10,6 +10,8 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Reservations from "./pages/Reservations";
 import PropertyRegister from "./pages/PropertyRegister";
+import Customers from "./pages/Customers";
+import Messages from "./pages/Messages";
 import NotFound from "./pages/NotFound";
 import FeedbackButton from "./components/feedback/FeedbackButton";
 
@@ -28,6 +30,8 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/reservations" element={<Reservations />} />
               <Route path="/property/register" element={<PropertyRegister />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/messages" element={<Messages />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

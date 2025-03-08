@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Sun, Moon, Globe, Heart, MessageSquare, FileText, PlusCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -27,9 +26,9 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
 
   const menuItems = [
     { name: t('ホーム', 'Home'), icon: Home, href: '/dashboard' },
-    { name: t('お客様管理', 'Guests'), icon: User, href: '#' },
+    { name: t('お客様管理', 'Guests'), icon: User, href: '/customers' },
     { name: t('予約管理', 'Reservations'), icon: Calendar, href: '/reservations' },
-    { name: t('メッセージ', 'Messages'), icon: MessageSquare, href: '#' },
+    { name: t('メッセージ', 'Messages'), icon: MessageSquare, href: '/messages' },
     { name: t('お気に入り', 'Favorites'), icon: Heart, href: '#' },
     { name: t('レポート', 'Reports'), icon: FileText, href: '#' },
     { name: t('分析', 'Analytics'), icon: BarChart2, href: '#' },
