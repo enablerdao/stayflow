@@ -89,7 +89,7 @@ const Dashboard = () => {
         <Header toggleMobileMenu={toggleMobileMenu} toggleSidebar={toggleSidebar} />
 
         {/* デモモード通知 */}
-        <FadeIn direction="top" duration={500} delay={300}>
+        <FadeIn direction="up" duration={500} delay={300}>
           <div className="px-4 py-2">
             <Alert variant="default" className="bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-900">
               <Info className="h-4 w-4 text-amber-500 mr-2" />
