@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
 import Sidebar from '@/components/dashboard/Sidebar';
 import Header from '@/components/dashboard/Header';
 import WelcomeScreen from '@/components/dashboard/WelcomeScreen';
@@ -11,6 +12,7 @@ const Dashboard = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [firstVisit, setFirstVisit] = useState(true);
   const [userName, setUserName] = useState('ゲスト');
+  const { toast } = useToast();
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
@@ -24,7 +26,7 @@ const Dashboard = () => {
       
       const timer = setTimeout(() => {
         setFirstVisit(false);
-      }, 8000);
+      }, 15000); // 延長して読む時間を確保
       
       return () => clearTimeout(timer);
     }
@@ -32,6 +34,10 @@ const Dashboard = () => {
 
   const dismissWelcomeScreen = () => {
     setFirstVisit(false);
+    toast({
+      title: "ようこそ！",
+      description: "ダッシュボードをご利用いただきありがとうございます。",
+    });
   };
 
   return (
