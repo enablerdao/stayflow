@@ -15,7 +15,7 @@ import Sidebar from '@/components/dashboard/Sidebar';
 const PropertyRegister = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Changed to false by default
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -59,7 +59,7 @@ const PropertyRegister = () => {
       )}
 
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Header toggleMobileMenu={toggleMobileMenu} />
+        <Header toggleMobileMenu={toggleMobileMenu} toggleSidebar={toggleSidebar} />
 
         <main className="flex-1 overflow-y-auto bg-gray-50 p-4 dark:bg-slate-950">
           <div className="mx-auto max-w-4xl">
