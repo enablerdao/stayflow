@@ -58,10 +58,21 @@ export const extractPropertyFromText = (text: string): ExtractedPropertyData => 
   
   // 築年数
   let yearMatch = text.match(/(?:築|築年数)[:：]?\s*(\d{1,2})(?:年)?/);
-  let year = yearMatch ? new Date().getFullYear() - parseInt(yearMatch[1]) : '';
+  let year = yearMatch ? (new Date().getFullYear() - parseInt(yearMatch[1])) : '';
   
   // 説明文（最初の100文字程度）
   let desc = text.substring(0, 200).replace(/\n+/g, ' ');
   
-  return { name, type, postalCode, prefecture: detectedPrefecture, city, address, price, size, year, desc };
+  return { 
+    name, 
+    type, 
+    postalCode, 
+    prefecture: detectedPrefecture, 
+    city, 
+    address, 
+    price: typeof price === 'string' ? (price === '' ? '' : parseInt(price)) : price, 
+    size: typeof size === 'string' ? (size === '' ? '' : parseFloat(size)) : size, 
+    year: typeof year === 'string' ? (year === '' ? '' : parseInt(year)) : year, 
+    desc 
+  };
 };
