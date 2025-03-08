@@ -27,7 +27,7 @@ const Header = ({ toggleMobileMenu, toggleSidebar }: HeaderProps) => {
   };
 
   return (
-    <header className="bg-white shadow-sm dark:bg-slate-900 border-b dark:border-slate-800">
+    <header className="bg-white shadow-sm dark:bg-slate-900 border-b dark:border-slate-800 relative z-50">
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <button

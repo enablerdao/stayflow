@@ -53,12 +53,12 @@ const Dashboard = () => {
       {/* モバイルメニューのオーバーレイ */}
       {mobileMenuOpen && (
         <div 
-          className="fixed inset-0 z-50 bg-black/50 lg:hidden" 
+          className="fixed inset-0 z-[100] bg-black/50 lg:hidden" 
           onClick={toggleMobileMenu}
         >
           {/* モバイルメニューの中身 */}
           <div 
-            className="fixed inset-y-0 left-0 w-64 bg-white dark:bg-slate-900 z-50 overflow-y-auto"
+            className="fixed inset-y-0 left-0 w-64 bg-white dark:bg-slate-900 z-[100] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center h-16 px-4 border-b dark:border-slate-800">
@@ -66,6 +66,7 @@ const Dashboard = () => {
               <button 
                 onClick={toggleMobileMenu}
                 className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-slate-800"
+                aria-label="閉じる"
               >
                 <X className="h-5 w-5" />
               </button>
