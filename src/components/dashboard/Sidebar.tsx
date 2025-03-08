@@ -6,6 +6,7 @@ import Logo from '@/components/Logo';
 import { useTheme } from '@/hooks/use-theme';
 import { Button } from '@/components/ui/button';
 import FadeIn from '@/components/animations/FadeIn';
+import { Link, useLocation } from 'react-router-dom';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -16,6 +17,7 @@ interface SidebarProps {
 const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProps) => {
   const { theme, setTheme } = useTheme();
   const [language, setLanguage] = useState('ja');
+  const location = useLocation();
   
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -24,7 +26,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   const menuItems = [
     { name: 'ホーム', icon: Home, href: '/dashboard' },
     { name: 'お客様管理', icon: User, href: '#' },
-    { name: '予約管理', icon: Calendar, href: '#' },
+    { name: '予約管理', icon: Calendar, href: '/reservations' },
     { name: 'メッセージ', icon: MessageSquare, href: '#' },
     { name: 'お気に入り', icon: Heart, href: '#' },
     { name: 'レポート', icon: FileText, href: '#' },
@@ -36,19 +38,30 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
     { name: '設定', icon: Settings, href: '#' },
   ];
   
+  // Check if a menu item is active based on current path
+  const isActive = (href: string) => {
+    if (href === '#') return false;
+    return location.pathname === href;
+  };
+  
   // モバイルビューの場合は別のレイアウトを使用
   if (mobileView) {
     return (
       <nav className="px-3 py-4 space-y-1.5">
         {menuItems.map((item, index) => (
           <FadeIn key={item.name} direction="left" delay={index * 50} duration={300}>
-            <a
-              href={item.href}
-              className="flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200"
+            <Link
+              to={item.href === '#' ? '#' : item.href}
+              className={cn(
+                "flex items-center rounded-md px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                isActive(item.href)
+                  ? "bg-primary/10 text-primary"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800"
+              )}
             >
               <item.icon className="h-5 w-5 mr-3 text-primary dark:text-primary" />
               <span>{item.name}</span>
-            </a>
+            </Link>
           </FadeIn>
         ))}
         
@@ -56,13 +69,13 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
         
         {bottomMenuItems.map((item, index) => (
           <FadeIn key={item.name} direction="left" delay={(menuItems.length + index) * 50} duration={300}>
-            <a
-              href={item.href}
+            <Link
+              to={item.href === '#' ? '#' : item.href}
               className="flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200"
             >
               <item.icon className="h-5 w-5 mr-3 text-primary dark:text-primary" />
               <span>{item.name}</span>
-            </a>
+            </Link>
           </FadeIn>
         ))}
         
@@ -110,12 +123,15 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
       
       <div className="flex flex-col justify-between h-[calc(100%-4rem)]">
         <nav className="mt-6 px-3 space-y-1.5 overflow-y-auto">
-          {menuItems.map((item, index) => (
-            <a
+          {menuItems.map((item) => (
+            <Link
               key={item.name}
-              href={item.href}
+              to={item.href === '#' ? '#' : item.href}
               className={cn(
-                'group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200',
+                "group flex items-center rounded-md px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                isActive(item.href)
+                  ? "bg-primary/10 text-primary"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800",
                 !sidebarOpen && 'lg:justify-center lg:px-2'
               )}
             >
@@ -123,17 +139,17 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
               <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
                 {item.name}
               </span>
-            </a>
+            </Link>
           ))}
         </nav>
           
         <div className="mb-6 px-3 space-y-1.5">
           {bottomMenuItems.map((item) => (
-            <a
+            <Link
               key={item.name}
-              href={item.href}
+              to={item.href === '#' ? '#' : item.href}
               className={cn(
-                'group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200',
+                "group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200",
                 !sidebarOpen && 'lg:justify-center lg:px-2'
               )}
             >
@@ -141,7 +157,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
               <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
                 {item.name}
               </span>
-            </a>
+            </Link>
           ))}
           
           {/* ダークモード切替 */}
