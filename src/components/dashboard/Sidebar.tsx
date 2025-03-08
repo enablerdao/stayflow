@@ -4,9 +4,11 @@ import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Sun, Moon, Glob
 import { cn } from '@/lib/utils';
 import Logo from '@/components/Logo';
 import { useTheme } from '@/hooks/use-theme';
+import { useLanguage } from '@/hooks/use-language';
 import { Button } from '@/components/ui/button';
 import FadeIn from '@/components/animations/FadeIn';
 import { Link, useLocation } from 'react-router-dom';
+import LanguageSwitcher from '@/components/language/LanguageSwitcher';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -16,7 +18,7 @@ interface SidebarProps {
 
 const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProps) => {
   const { theme, setTheme } = useTheme();
-  const [language, setLanguage] = useState('ja');
+  const { t } = useLanguage();
   const location = useLocation();
   
   const toggleTheme = () => {
@@ -24,18 +26,18 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   };
 
   const menuItems = [
-    { name: 'ホーム', icon: Home, href: '/dashboard' },
-    { name: 'お客様管理', icon: User, href: '#' },
-    { name: '予約管理', icon: Calendar, href: '/reservations' },
-    { name: 'メッセージ', icon: MessageSquare, href: '#' },
-    { name: 'お気に入り', icon: Heart, href: '#' },
-    { name: 'レポート', icon: FileText, href: '#' },
-    { name: '分析', icon: BarChart2, href: '#' },
+    { name: t('ホーム', 'Home'), icon: Home, href: '/dashboard' },
+    { name: t('お客様管理', 'Guests'), icon: User, href: '#' },
+    { name: t('予約管理', 'Reservations'), icon: Calendar, href: '/reservations' },
+    { name: t('メッセージ', 'Messages'), icon: MessageSquare, href: '#' },
+    { name: t('お気に入り', 'Favorites'), icon: Heart, href: '#' },
+    { name: t('レポート', 'Reports'), icon: FileText, href: '#' },
+    { name: t('分析', 'Analytics'), icon: BarChart2, href: '#' },
   ];
 
   const bottomMenuItems = [
-    { name: '新規作成', icon: PlusCircle, href: '#' },
-    { name: '設定', icon: Settings, href: '#' },
+    { name: t('新規作成', 'Create New'), icon: PlusCircle, href: '#' },
+    { name: t('設定', 'Settings'), icon: Settings, href: '#' },
   ];
   
   // Check if a menu item is active based on current path
@@ -91,8 +93,16 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
             ) : (
               <Moon className="h-5 w-5 mr-3 text-slate-700" />
             )}
-            <span>{theme === 'dark' ? 'ライトモード' : 'ダークモード'}</span>
+            <span>{theme === 'dark' ? t('ライトモード', 'Light Mode') : t('ダークモード', 'Dark Mode')}</span>
           </Button>
+        </FadeIn>
+        
+        {/* 言語切替 */}
+        <FadeIn direction="left" delay={(menuItems.length + bottomMenuItems.length + 1) * 50} duration={300}>
+          <div className="w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium">
+            <LanguageSwitcher />
+            <span className="ml-2">{t('言語設定', 'Language')}</span>
+          </div>
         </FadeIn>
       </nav>
     );
@@ -113,7 +123,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
         <button
           onClick={toggleSidebar}
           className="hidden rounded-md p-1.5 text-gray-500 hover:bg-gray-100 lg:block dark:text-gray-300 dark:hover:bg-slate-800 transition-colors duration-200"
-          aria-label="サイドバーを切り替える"
+          aria-label={t('サイドバーを切り替える', 'Toggle sidebar')}
         >
           <ChevronLeft
             className={cn('h-5 w-5 transition-transform duration-300', !sidebarOpen && 'rotate-180')}
@@ -175,24 +185,23 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
               <Moon className={cn('h-5 w-5 flex-shrink-0 text-slate-700', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
             )}
             <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
-              {theme === 'dark' ? 'ライトモード' : 'ダークモード'}
+              {theme === 'dark' ? t('ライトモード', 'Light Mode') : t('ダークモード', 'Dark Mode')}
             </span>
           </Button>
           
-          {/* モバイル用の言語切替 */}
-          <div className="lg:hidden">
-            <Button
-              variant="ghost"
-              className={cn(
-                'w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200',
-                !sidebarOpen && 'lg:justify-center lg:px-2'
-              )}
-            >
-              <Globe className={cn('h-5 w-5 flex-shrink-0 text-primary dark:text-primary', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
-              <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
-                言語設定
-              </span>
-            </Button>
+          {/* 言語切替 */}
+          <div 
+            className={cn(
+              'w-full flex items-center rounded-md px-3 py-2.5',
+              !sidebarOpen && 'lg:justify-center lg:px-2'
+            )}
+          >
+            <div className={sidebarOpen ? '' : 'lg:w-full lg:flex lg:justify-center'}>
+              <LanguageSwitcher />
+            </div>
+            <span className={cn('ml-2 text-sm font-medium', !sidebarOpen && 'lg:hidden')}>
+              {t('言語設定', 'Language')}
+            </span>
           </div>
         </div>
       </div>

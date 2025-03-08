@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'react-router-dom';
+import { useLanguage } from '@/hooks/use-language';
 
 const FeedbackButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,7 @@ const FeedbackButton = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const location = useLocation();
+  const { t } = useLanguage();
   
   const toggleFeedback = () => {
     setIsOpen(!isOpen);
@@ -25,8 +27,8 @@ const FeedbackButton = () => {
     
     if (!feedback.trim()) {
       toast({
-        title: "入力エラー / Input Error",
-        description: "フィードバックを入力してください / Please enter your feedback",
+        title: t("入力エラー", "Input Error"),
+        description: t("フィードバックを入力してください", "Please enter your feedback"),
         variant: "destructive"
       });
       return;
@@ -51,8 +53,8 @@ const FeedbackButton = () => {
       setFeedback('');
       
       toast({
-        title: "送信完了 / Submission Complete",
-        description: "フィードバックをいただきありがとうございます / Thank you for your feedback",
+        title: t("送信完了", "Submission Complete"),
+        description: t("フィードバックをいただきありがとうございます", "Thank you for your feedback"),
       });
     }, 1000);
   };
@@ -64,7 +66,7 @@ const FeedbackButton = () => {
         <Button 
           onClick={toggleFeedback}
           className="rounded-full h-12 w-12 shadow-lg"
-          aria-label="フィードバック / Feedback"
+          aria-label={t("フィードバック", "Feedback")}
         >
           <MessageSquarePlus className="h-5 w-5" />
         </Button>
@@ -79,7 +81,7 @@ const FeedbackButton = () => {
           >
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold">
-                フィードバック・機能要望 / Feedback & Feature Requests
+                {t("フィードバック・機能要望", "Feedback & Feature Requests")}
               </h3>
               <Button 
                 variant="ghost" 
@@ -94,7 +96,7 @@ const FeedbackButton = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-                  現在のページURL / Current Page URL:
+                  {t("現在のページURL", "Current Page URL")}:
                 </p>
                 <div className="text-xs bg-gray-100 dark:bg-slate-800 p-2 rounded-md overflow-x-auto">
                   {window.location.href}
@@ -103,7 +105,7 @@ const FeedbackButton = () => {
               
               <div className="mb-4">
                 <Textarea
-                  placeholder="ご意見・ご要望をお聞かせください / Please share your feedback or feature request"
+                  placeholder={t("ご意見・ご要望をお聞かせください", "Please share your feedback or feature request")}
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
                   className="min-h-[120px]"
@@ -118,7 +120,7 @@ const FeedbackButton = () => {
                   className="mr-2"
                   disabled={isSubmitting}
                 >
-                  キャンセル / Cancel
+                  {t("キャンセル", "Cancel")}
                 </Button>
                 <Button 
                   type="submit"
@@ -130,9 +132,9 @@ const FeedbackButton = () => {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      送信中 / Submitting...
+                      {t("送信中", "Submitting...")}
                     </span>
-                  ) : '送信 / Submit'}
+                  ) : t("送信", "Submit")}
                 </Button>
               </div>
             </form>
