@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Sun, Moon, Globe, Heart, MessageSquare, FileText, PlusCircle, MessageSquarePlus } from 'lucide-react';
+import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Sun, Moon, Globe, Heart, MessageSquare, FileText, PlusCircle, MessageSquarePlus, Building, ChevronDown, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/Logo';
 import { useTheme } from '@/hooks/use-theme';
@@ -22,9 +22,14 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   const { t } = useLanguage();
   const location = useLocation();
   const { openFeedback } = useFeedback();
+  const [propertyMenuOpen, setPropertyMenuOpen] = useState(false);
   
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  const togglePropertyMenu = () => {
+    setPropertyMenuOpen(!propertyMenuOpen);
   };
 
   const menuItems = [
@@ -38,7 +43,16 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   ];
 
   const bottomMenuItems = [
-    { name: t('新規作成', 'Create New'), icon: PlusCircle, href: '#' },
+    { 
+      name: t('物件管理', 'Property Management'), 
+      icon: Building, 
+      href: '#',
+      hasSubmenu: true,
+      submenu: [
+        { name: t('新規作成', 'Create New'), icon: PlusCircle, href: '/property/register' },
+        // You can add more property-related submenu items here
+      ]
+    },
     { name: t('設定', 'Settings'), icon: Settings, href: '#' },
     { 
       name: t('フィードバック', 'Feedback'), 
@@ -51,7 +65,12 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   // Check if a menu item is active based on current path
   const isActive = (href: string) => {
     if (href === '#') return false;
-    return location.pathname === href;
+    return location.pathname === href || location.pathname.startsWith(href);
+  };
+  
+  // Check if any submenu item is active
+  const isSubmenuActive = (submenu: any[]) => {
+    return submenu?.some(item => isActive(item.href));
   };
   
   // モバイルビューの場合は別のレイアウトを使用
@@ -79,7 +98,50 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
         
         {bottomMenuItems.map((item, index) => (
           <FadeIn key={item.name} direction="left" delay={(menuItems.length + index) * 50} duration={300}>
-            {item.onClick ? (
+            {item.hasSubmenu ? (
+              <div className="space-y-1">
+                <button
+                  onClick={togglePropertyMenu}
+                  className={cn(
+                    "w-full flex items-center justify-between rounded-md px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                    (propertyMenuOpen || isSubmenuActive(item.submenu))
+                      ? "bg-primary/10 text-primary"
+                      : "text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800"
+                  )}
+                >
+                  <div className="flex items-center">
+                    <item.icon className="h-5 w-5 mr-3 text-primary dark:text-primary" />
+                    <span>{item.name}</span>
+                  </div>
+                  {propertyMenuOpen ? (
+                    <ChevronDown className="h-4 w-4" />
+                  ) : (
+                    <ChevronRight className="h-4 w-4" />
+                  )}
+                </button>
+                
+                {propertyMenuOpen && (
+                  <div className="pl-4 space-y-1">
+                    {item.submenu.map((subItem, subIndex) => (
+                      <FadeIn key={subItem.name} direction="left" delay={subIndex * 50} duration={300}>
+                        <Link
+                          to={subItem.href === '#' ? '#' : subItem.href}
+                          className={cn(
+                            "flex items-center rounded-md px-3 py-2 text-sm font-medium transition-all duration-200 ml-2",
+                            isActive(subItem.href)
+                              ? "bg-primary/10 text-primary"
+                              : "text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800"
+                          )}
+                        >
+                          <subItem.icon className="h-4 w-4 mr-3 text-primary dark:text-primary" />
+                          <span>{subItem.name}</span>
+                        </Link>
+                      </FadeIn>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : item.onClick ? (
               <button
                 onClick={item.onClick}
                 className="w-full flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200"
@@ -181,7 +243,71 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
         <div className="mb-6 px-3 space-y-1.5">
           {bottomMenuItems.map((item) => (
             <div key={item.name}>
-              {item.onClick ? (
+              {item.hasSubmenu ? (
+                <div className="space-y-1">
+                  <button
+                    onClick={togglePropertyMenu}
+                    className={cn(
+                      "w-full group flex items-center justify-between rounded-md px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                      (propertyMenuOpen || isSubmenuActive(item.submenu))
+                        ? "bg-primary/10 text-primary"
+                        : "text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800",
+                      !sidebarOpen && 'lg:justify-center lg:px-2'
+                    )}
+                  >
+                    <div className="flex items-center">
+                      <item.icon className={cn('h-5 w-5 flex-shrink-0 text-primary dark:text-primary', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+                      <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
+                        {item.name}
+                      </span>
+                    </div>
+                    {sidebarOpen && (
+                      propertyMenuOpen ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />
+                    )}
+                  </button>
+                  
+                  {propertyMenuOpen && sidebarOpen && (
+                    <div className="pl-4 space-y-1 mt-1">
+                      {item.submenu.map((subItem) => (
+                        <Link
+                          key={subItem.name}
+                          to={subItem.href === '#' ? '#' : subItem.href}
+                          className={cn(
+                            "flex items-center rounded-md px-3 py-2 text-sm font-medium transition-all duration-200 ml-2",
+                            isActive(subItem.href)
+                              ? "bg-primary/10 text-primary"
+                              : "text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800"
+                          )}
+                        >
+                          <subItem.icon className="h-4 w-4 mr-3 text-primary dark:text-primary" />
+                          <span>{subItem.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {/* When sidebar is collapsed, show submenu items as popover */}
+                  {!sidebarOpen && propertyMenuOpen && (
+                    <div className="fixed left-20 mt-0 w-48 rounded-md shadow-lg bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5 z-50">
+                      <div className="py-1 space-y-1">
+                        {item.submenu.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            to={subItem.href === '#' ? '#' : subItem.href}
+                            className={cn(
+                              "flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-700",
+                              isActive(subItem.href) && "bg-primary/10 text-primary"
+                            )}
+                          >
+                            <subItem.icon className="h-4 w-4 mr-3 text-primary dark:text-primary" />
+                            <span>{subItem.name}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : item.onClick ? (
                 <button
                   onClick={item.onClick}
                   className={cn(
