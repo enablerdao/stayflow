@@ -18,7 +18,11 @@ const Dashboard = () => {
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   useEffect(() => {
-    // localStorage.clear(); // デバッグ用：強制的にウェルカム画面を表示する場合はコメントを外す
+    // デバッグ中は毎回ウェルカム画面を表示する
+    setFirstVisit(true);
+    
+    // 以前のローカルストレージのロジックをコメントアウト
+    /*
     const hasVisitedBefore = localStorage.getItem('hasVisitedDashboard');
     
     // デバッグ用コンソールログ
@@ -30,6 +34,7 @@ const Dashboard = () => {
     } else {
       setFirstVisit(false);
     }
+    */
   }, []);
 
   const dismissWelcomeScreen = () => {
