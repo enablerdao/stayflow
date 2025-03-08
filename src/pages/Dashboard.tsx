@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, Home, User, Calendar, BarChart2, Settings, Menu, X, Bell, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/Logo';
@@ -8,13 +7,33 @@ import FadeIn from '@/components/animations/FadeIn';
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [firstVisit, setFirstVisit] = useState(true);
+  const [userName, setUserName] = useState('ゲスト');
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
+  useEffect(() => {
+    const hasVisitedBefore = localStorage.getItem('hasVisitedDashboard');
+    if (hasVisitedBefore) {
+      setFirstVisit(false);
+    } else {
+      localStorage.setItem('hasVisitedDashboard', 'true');
+      
+      const timer = setTimeout(() => {
+        setFirstVisit(false);
+      }, 8000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const dismissWelcomeScreen = () => {
+    setFirstVisit(false);
+  };
+
   return (
     <div className="flex h-screen bg-background">
-      {/* Sidebar - Desktop */}
       <aside
         className={cn(
           'fixed inset-y-0 left-0 z-40 h-full w-64 bg-white shadow-md transition-all duration-300 lg:static dark:bg-slate-900',
@@ -59,7 +78,6 @@ const Dashboard = () => {
         </nav>
       </aside>
 
-      {/* Mobile sidebar backdrop */}
       {mobileMenuOpen && (
         <div 
           className="fixed inset-0 z-30 bg-black/50 lg:hidden" 
@@ -67,9 +85,7 @@ const Dashboard = () => {
         />
       )}
 
-      {/* Main Content */}
       <div className="flex flex-1 flex-col overflow-hidden">
-        {/* Top Navigation */}
         <header className="bg-white shadow dark:bg-slate-900">
           <div className="flex h-16 items-center justify-between px-4">
             <div className="flex items-center">
@@ -106,11 +122,59 @@ const Dashboard = () => {
           </div>
         </header>
 
-        {/* Dashboard Content */}
+        {firstVisit && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+            <FadeIn 
+              direction="up" 
+              className="max-w-3xl rounded-lg bg-white p-8 shadow-2xl dark:bg-slate-800"
+            >
+              <h2 className="mb-6 text-3xl font-bold text-primary">ようこそ、{userName}さん</h2>
+              <p className="mb-6 text-lg text-gray-600 dark:text-gray-300">
+                スティフローダッシュボードへようこそ。ここから全ての管理機能にアクセスできます。
+              </p>
+              
+              <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-center dark:border-gray-700 dark:bg-slate-900">
+                  <Calendar className="mx-auto mb-2 h-10 w-10 text-primary" />
+                  <h3 className="font-medium">予約管理</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">本日の予約: 3件</p>
+                </div>
+                
+                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-center dark:border-gray-700 dark:bg-slate-900">
+                  <User className="mx-auto mb-2 h-10 w-10 text-primary" />
+                  <h3 className="font-medium">お客様管理</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">新規お客様: 5名</p>
+                </div>
+                
+                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-center dark:border-gray-700 dark:bg-slate-900">
+                  <BarChart2 className="mx-auto mb-2 h-10 w-10 text-primary" />
+                  <h3 className="font-medium">売上分析</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">前月比: +12%</p>
+                </div>
+              </div>
+              
+              <div className="mb-6 rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
+                <h3 className="mb-2 font-medium text-blue-800 dark:text-blue-300">クイックスタート</h3>
+                <p className="text-sm text-blue-700 dark:text-blue-200">
+                  左側のサイドバーから各機能にアクセスできます。まずは本日の予約を確認してみましょう。
+                </p>
+              </div>
+              
+              <div className="flex justify-end">
+                <button 
+                  onClick={dismissWelcomeScreen}
+                  className="rounded-md bg-primary px-6 py-2 text-white transition-colors hover:bg-primary/90"
+                >
+                  ダッシュボードを表示
+                </button>
+              </div>
+            </FadeIn>
+          </div>
+        )}
+
         <main className="flex-1 overflow-y-auto bg-gray-50 p-4 dark:bg-slate-950">
           <FadeIn>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {/* Stats Cards */}
               {[
                 { title: '宿泊数', value: '128', change: '+12.5%', up: true },
                 { title: '予約数', value: '54', change: '+7.2%', up: true },
@@ -137,14 +201,12 @@ const Dashboard = () => {
               ))}
             </div>
 
-            {/* Charts and Tables */}
             <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
               <div className="col-span-2 rounded-lg border bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">月間予約状況</h3>
                 <div className="mt-4 h-64 w-full">
                   <div className="flex h-full w-full items-center justify-center">
                     <div className="h-full w-full rounded bg-gray-100 dark:bg-slate-800">
-                      {/* Chart placeholder */}
                       <div className="flex h-full w-full flex-col items-center justify-center px-4 text-center">
                         <BarChart2 className="h-16 w-16 text-gray-300 dark:text-gray-700" />
                         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -184,7 +246,6 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Recent Activity */}
             <div className="mt-6 rounded-lg border bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">最近のアクティビティ</h3>
