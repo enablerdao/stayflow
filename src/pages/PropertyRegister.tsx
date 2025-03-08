@@ -38,6 +38,15 @@ const PropertyRegister = () => {
     }, 1500);
   };
 
+  // File input handler
+  const handleFileButtonClick = () => {
+    // Type casting the element to HTMLInputElement which has the click() method
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.click();
+    }
+  };
+
   return (
     <div className="flex h-screen bg-background">
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
@@ -173,7 +182,7 @@ const PropertyRegister = () => {
                           type="button" 
                           variant="outline" 
                           className="mt-4"
-                          onClick={() => document.querySelector('input[type="file"]')?.click()}
+                          onClick={handleFileButtonClick}
                         >
                           ファイルを選択
                         </Button>
