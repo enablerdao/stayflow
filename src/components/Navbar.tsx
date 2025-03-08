@@ -28,12 +28,11 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
+  // Simplified navigation links
   const navLinks = [
     { name: 'ホーム', href: '#home' },
     { name: 'サービス', href: '#features' },
     { name: '料金', href: '#pricing' },
-    { name: 'お客様の声', href: '#testimonials' },
-    { name: 'よくある質問', href: '#faq' },
     { name: 'お問い合わせ', href: '#contact' },
   ];
 
@@ -50,7 +49,7 @@ const Navbar = () => {
             <Logo />
           </a>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Simplified */}
           <nav className="hidden md:flex space-x-8">
             {navLinks.map((link) => (
               <a
@@ -90,14 +89,14 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - Simplified */}
       <div
         className={cn(
           'fixed inset-0 z-40 bg-background/95 backdrop-blur-lg md:hidden transform transition-transform duration-300 ease-in-out',
           isOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
-        <div className="flex flex-col h-full justify-center items-center space-y-8 p-4">
+        <div className="flex flex-col h-full justify-center items-center space-y-6 p-4">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -108,12 +107,14 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
-          <Link to="/dashboard" className="btn-outline mt-4" onClick={closeMenu}>
-            ダッシュボード
-          </Link>
-          <a href="#contact" className="btn-primary mt-4" onClick={closeMenu}>
-            はじめる
-          </a>
+          <div className="flex flex-col space-y-4 pt-4">
+            <Link to="/dashboard" className="btn-outline text-center" onClick={closeMenu}>
+              ダッシュボード
+            </Link>
+            <a href="#contact" className="btn-primary text-center" onClick={closeMenu}>
+              はじめる
+            </a>
+          </div>
         </div>
       </div>
     </header>
