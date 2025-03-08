@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,6 +65,12 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
+            <Link
+              to="/dashboard"
+              className="btn-outline"
+            >
+              ダッシュボード
+            </Link>
             <a
               href="#contact"
               className="btn-primary"
@@ -101,6 +108,9 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
+          <Link to="/dashboard" className="btn-outline mt-4" onClick={closeMenu}>
+            ダッシュボード
+          </Link>
           <a href="#contact" className="btn-primary mt-4" onClick={closeMenu}>
             はじめる
           </a>
