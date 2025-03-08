@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import Logo from '@/components/Logo';
 import { useTheme } from '@/hooks/use-theme';
 import { Button } from '@/components/ui/button';
+import FadeIn from '@/components/animations/FadeIn';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -39,43 +40,47 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   if (mobileView) {
     return (
       <nav className="px-3 py-4 space-y-1.5">
-        {menuItems.map((item) => (
-          <a
-            key={item.name}
-            href={item.href}
-            className="flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800"
-          >
-            <item.icon className="h-5 w-5 mr-3" />
-            <span>{item.name}</span>
-          </a>
+        {menuItems.map((item, index) => (
+          <FadeIn key={item.name} direction="left" delay={index * 50} duration={300}>
+            <a
+              href={item.href}
+              className="flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200"
+            >
+              <item.icon className="h-5 w-5 mr-3 text-primary dark:text-primary" />
+              <span>{item.name}</span>
+            </a>
+          </FadeIn>
         ))}
         
         <div className="my-3 border-t dark:border-slate-800"></div>
         
-        {bottomMenuItems.map((item) => (
-          <a
-            key={item.name}
-            href={item.href}
-            className="flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800"
-          >
-            <item.icon className="h-5 w-5 mr-3" />
-            <span>{item.name}</span>
-          </a>
+        {bottomMenuItems.map((item, index) => (
+          <FadeIn key={item.name} direction="left" delay={(menuItems.length + index) * 50} duration={300}>
+            <a
+              href={item.href}
+              className="flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200"
+            >
+              <item.icon className="h-5 w-5 mr-3 text-primary dark:text-primary" />
+              <span>{item.name}</span>
+            </a>
+          </FadeIn>
         ))}
         
         {/* ダークモード切替 */}
-        <Button
-          onClick={toggleTheme}
-          variant="ghost"
-          className="w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800"
-        >
-          {theme === 'dark' ? (
-            <Sun className="h-5 w-5 mr-3" />
-          ) : (
-            <Moon className="h-5 w-5 mr-3" />
-          )}
-          <span>{theme === 'dark' ? 'ライトモード' : 'ダークモード'}</span>
-        </Button>
+        <FadeIn direction="left" delay={(menuItems.length + bottomMenuItems.length) * 50} duration={300}>
+          <Button
+            onClick={toggleTheme}
+            variant="ghost"
+            className="w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200"
+          >
+            {theme === 'dark' ? (
+              <Sun className="h-5 w-5 mr-3 text-amber-500" />
+            ) : (
+              <Moon className="h-5 w-5 mr-3 text-slate-700" />
+            )}
+            <span>{theme === 'dark' ? 'ライトモード' : 'ダークモード'}</span>
+          </Button>
+        </FadeIn>
       </nav>
     );
   }
@@ -83,9 +88,10 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
   return (
     <aside
       className={cn(
-        'fixed inset-y-0 left-0 z-30 h-full bg-white shadow-sm transition-all duration-300 lg:static dark:bg-slate-900 dark:border-r dark:border-slate-800',
+        'fixed inset-y-0 left-0 z-30 h-full bg-white shadow-sm transition-all duration-300 ease-in-out lg:static dark:bg-slate-900 dark:border-r dark:border-slate-800',
         sidebarOpen ? 'w-64 translate-x-0' : '-translate-x-full lg:w-20 lg:translate-x-0'
       )}
+      style={{ boxShadow: '0 0 20px rgba(0, 0, 0, 0.05)' }}
     >
       <div className="flex h-16 items-center justify-between px-4 border-b dark:border-slate-800">
         <div className={cn('transition-all duration-300', !sidebarOpen && 'lg:opacity-0')}>
@@ -93,7 +99,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
         </div>
         <button
           onClick={toggleSidebar}
-          className="hidden rounded-md p-1.5 text-gray-500 hover:bg-gray-100 lg:block dark:text-gray-300 dark:hover:bg-slate-800"
+          className="hidden rounded-md p-1.5 text-gray-500 hover:bg-gray-100 lg:block dark:text-gray-300 dark:hover:bg-slate-800 transition-colors duration-200"
           aria-label="サイドバーを切り替える"
         >
           <ChevronLeft
@@ -103,17 +109,17 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
       </div>
       
       <div className="flex flex-col justify-between h-[calc(100%-4rem)]">
-        <nav className="mt-6 px-3 space-y-1.5">
-          {menuItems.map((item) => (
+        <nav className="mt-6 px-3 space-y-1.5 overflow-y-auto">
+          {menuItems.map((item, index) => (
             <a
               key={item.name}
               href={item.href}
               className={cn(
-                'group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800',
+                'group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200',
                 !sidebarOpen && 'lg:justify-center lg:px-2'
               )}
             >
-              <item.icon className={cn('h-5 w-5 flex-shrink-0', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+              <item.icon className={cn('h-5 w-5 flex-shrink-0 text-primary dark:text-primary', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
               <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
                 {item.name}
               </span>
@@ -127,11 +133,11 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
               key={item.name}
               href={item.href}
               className={cn(
-                'group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800',
+                'group flex items-center rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200',
                 !sidebarOpen && 'lg:justify-center lg:px-2'
               )}
             >
-              <item.icon className={cn('h-5 w-5 flex-shrink-0', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+              <item.icon className={cn('h-5 w-5 flex-shrink-0 text-primary dark:text-primary', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
               <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
                 {item.name}
               </span>
@@ -143,14 +149,14 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
             onClick={toggleTheme}
             variant="ghost"
             className={cn(
-              'w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800',
+              'w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200',
               !sidebarOpen && 'lg:justify-center lg:px-2'
             )}
           >
             {theme === 'dark' ? (
-              <Sun className={cn('h-5 w-5 flex-shrink-0', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+              <Sun className={cn('h-5 w-5 flex-shrink-0 text-amber-500', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
             ) : (
-              <Moon className={cn('h-5 w-5 flex-shrink-0', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+              <Moon className={cn('h-5 w-5 flex-shrink-0 text-slate-700', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
             )}
             <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
               {theme === 'dark' ? 'ライトモード' : 'ダークモード'}
@@ -162,11 +168,11 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, mobileView = false }: SidebarProp
             <Button
               variant="ghost"
               className={cn(
-                'w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800',
+                'w-full flex items-center justify-start rounded-md px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary dark:text-gray-200 dark:hover:bg-slate-800 transition-all duration-200',
                 !sidebarOpen && 'lg:justify-center lg:px-2'
               )}
             >
-              <Globe className={cn('h-5 w-5 flex-shrink-0', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
+              <Globe className={cn('h-5 w-5 flex-shrink-0 text-primary dark:text-primary', sidebarOpen ? 'mr-3' : 'lg:mr-0')} />
               <span className={cn('transition-opacity duration-300', !sidebarOpen && 'lg:hidden')}>
                 言語設定
               </span>
