@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { LogOut, Settings, User } from 'lucide-react';
+import { LogOut, Settings, User, LogIn } from 'lucide-react';
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -10,10 +10,12 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { useToast } from '@/hooks/use-toast';
+import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
   const { toast } = useToast();
   const [userName] = useState('ゲスト');
+  const [isLoggedIn] = useState(false); // Currently hardcoded to false for demo mode
 
   const handleLogout = () => {
     toast({
@@ -36,6 +38,13 @@ const UserProfile = () => {
     });
   };
 
+  const handleLogin = () => {
+    toast({
+      title: "ログイン",
+      description: "ログイン機能は開発中です。",
+    });
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -48,21 +57,32 @@ const UserProfile = () => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>{userName}さん</DropdownMenuLabel>
+        <DropdownMenuLabel className="flex items-center">
+          {userName}さん <span className="ml-2 text-xs px-1.5 py-0.5 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100 rounded-full">デモ</span>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleProfile}>
-          <User className="mr-2 h-4 w-4" />
-          <span>プロフィール</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleSettings}>
-          <Settings className="mr-2 h-4 w-4" />
-          <span>設定</span>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout}>
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>ログアウト</span>
-        </DropdownMenuItem>
+        {isLoggedIn ? (
+          <>
+            <DropdownMenuItem onClick={handleProfile}>
+              <User className="mr-2 h-4 w-4" />
+              <span>プロフィール</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleSettings}>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>設定</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={handleLogout}>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>ログアウト</span>
+            </DropdownMenuItem>
+          </>
+        ) : (
+          <DropdownMenuItem onClick={handleLogin}>
+            <LogIn className="mr-2 h-4 w-4" />
+            <span>ログイン</span>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

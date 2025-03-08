@@ -1,18 +1,20 @@
 
 import { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, Info } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import Sidebar from '@/components/dashboard/Sidebar';
 import Header from '@/components/dashboard/Header';
 import WelcomeScreen from '@/components/dashboard/WelcomeScreen';
 import DashboardContent from '@/components/dashboard/DashboardContent';
 import FadeIn from '@/components/animations/FadeIn';
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true); // Default to open on larger screens
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [firstVisit, setFirstVisit] = useState(true);
   const [userName, setUserName] = useState('ゲスト');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
   const { toast } = useToast();
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
@@ -85,6 +87,18 @@ const Dashboard = () => {
 
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header toggleMobileMenu={toggleMobileMenu} toggleSidebar={toggleSidebar} />
+
+        {/* デモモード通知 */}
+        <FadeIn direction="top" duration={500} delay={300}>
+          <div className="px-4 py-2">
+            <Alert variant="default" className="bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-900">
+              <Info className="h-4 w-4 text-amber-500 mr-2" />
+              <AlertDescription className="text-amber-800 dark:text-amber-300">
+                これはデモモードです。すべての機能を利用するにはログインしてください。
+              </AlertDescription>
+            </Alert>
+          </div>
+        </FadeIn>
 
         {firstVisit && (
           <WelcomeScreen userName={userName} dismissWelcomeScreen={dismissWelcomeScreen} />
