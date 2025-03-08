@@ -45,7 +45,7 @@ const Dashboard = () => {
     setFirstVisit(false);
     toast({
       title: "ようこそ！",
-      description: "ダッシュボードをご利用いただきありがとうございます。",
+      description: "StayFlowへようこそ！ダッシュボードをご利用いただきありがとうございます。",
     });
   };
 
@@ -69,7 +69,7 @@ const Dashboard = () => {
             style={{ boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)' }}
           >
             <div className="flex justify-between items-center h-16 px-4 border-b dark:border-slate-800">
-              <h2 className="text-lg font-semibold">メニュー</h2>
+              <h2 className="text-lg font-semibold">メニュー / Menu</h2>
               <button 
                 onClick={closeMobileMenu}
                 className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors duration-200"
@@ -95,6 +95,7 @@ const Dashboard = () => {
               <Info className="h-4 w-4 text-amber-500 mr-2" />
               <AlertDescription className="text-amber-800 dark:text-amber-300">
                 これはデモモードです。すべての機能を利用するにはログインしてください。
+                <span className="hidden md:inline"> / This is demo mode. Please login to use all features.</span>
               </AlertDescription>
             </Alert>
           </div>

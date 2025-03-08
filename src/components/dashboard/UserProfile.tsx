@@ -19,29 +19,29 @@ const UserProfile = () => {
 
   const handleLogout = () => {
     toast({
-      title: "ログアウト",
-      description: "ログアウトしました。",
+      title: "ログアウト / Logout",
+      description: "ログアウトしました。 / You have been logged out.",
     });
   };
 
   const handleSettings = () => {
     toast({
-      title: "設定",
-      description: "設定画面は開発中です。",
+      title: "設定 / Settings",
+      description: "設定画面は開発中です。 / Settings page is under development.",
     });
   };
 
   const handleProfile = () => {
     toast({
-      title: "プロフィール",
-      description: "プロフィール画面は開発中です。",
+      title: "プロフィール / Profile",
+      description: "プロフィール画面は開発中です。 / Profile page is under development.",
     });
   };
 
   const handleLogin = () => {
     toast({
-      title: "ログイン",
-      description: "ログイン機能は開発中です。",
+      title: "ログイン / Login",
+      description: "ログイン機能は開発中です。 / Login feature is under development.",
     });
   };
 
@@ -58,29 +58,29 @@ const UserProfile = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel className="flex items-center">
-          {userName}さん <span className="ml-2 text-xs px-1.5 py-0.5 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100 rounded-full">デモ</span>
+          {userName}さん <span className="ml-2 text-xs px-1.5 py-0.5 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-100 rounded-full">DEMO</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {isLoggedIn ? (
           <>
             <DropdownMenuItem onClick={handleProfile}>
               <User className="mr-2 h-4 w-4" />
-              <span>プロフィール</span>
+              <span>プロフィール / Profile</span>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleSettings}>
               <Settings className="mr-2 h-4 w-4" />
-              <span>設定</span>
+              <span>設定 / Settings</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut className="mr-2 h-4 w-4" />
-              <span>ログアウト</span>
+              <span>ログアウト / Logout</span>
             </DropdownMenuItem>
           </>
         ) : (
           <DropdownMenuItem onClick={handleLogin}>
             <LogIn className="mr-2 h-4 w-4" />
-            <span>ログイン</span>
+            <span>ログイン / Login</span>
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>

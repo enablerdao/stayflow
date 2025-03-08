@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import UserProfile from './UserProfile';
 import { useTheme } from '@/hooks/use-theme';
 import { Button } from '@/components/ui/button';
+import Logo from '@/components/Logo';
 import {
   Select,
   SelectContent,
@@ -44,21 +45,26 @@ const Header = ({ toggleMobileMenu, toggleSidebar }: HeaderProps) => {
           >
             <ChevronRight className="h-5 w-5" />
           </button>
-          <div className="ml-2">
-            <h1 className="text-lg font-semibold text-gray-800 dark:text-white">ダッシュボード</h1>
+          <div className="ml-2 flex items-center">
+            <div className="lg:hidden">
+              <Logo size="sm" />
+            </div>
+            <div className="hidden lg:block">
+              <Logo size="md" />
+            </div>
           </div>
         </div>
         <div className="flex items-center space-x-4">
           <div className="relative hidden md:block">
             <input
               type="text"
-              placeholder="検索..."
+              placeholder="検索... / Search..."
               className="h-9 w-64 rounded-md border border-gray-300 py-2 pl-9 pr-4 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             />
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
           </div>
           
-          {/* 言語選択 */}
+          {/* 言語選択 - モバイルでは非表示 */}
           <div className="hidden md:flex">
             <Select value={language} onValueChange={handleLanguageChange}>
               <SelectTrigger className="w-[90px] h-9 bg-transparent border-gray-300 dark:border-slate-700">
