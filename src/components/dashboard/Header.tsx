@@ -1,6 +1,7 @@
 
 import { Menu, Bell, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import UserProfile from './UserProfile';
 
 interface HeaderProps {
   toggleMobileMenu: () => void;
@@ -33,13 +34,7 @@ const Header = ({ toggleMobileMenu }: HeaderProps) => {
           <button className="rounded-full bg-gray-100 p-1.5 text-gray-600 hover:bg-gray-200 dark:bg-slate-800 dark:text-gray-300 dark:hover:bg-slate-700">
             <Bell className="h-5 w-5" />
           </button>
-          <div className="h-8 w-8 overflow-hidden rounded-full bg-primary">
-            <img
-              src="https://source.unsplash.com/random/100x100/?portrait"
-              alt="User"
-              className="h-full w-full object-cover"
-            />
-          </div>
+          <UserProfile />
         </div>
       </div>
     </header>

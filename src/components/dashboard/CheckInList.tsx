@@ -1,10 +1,8 @@
 
+import { useCheckInData } from '@/hooks/use-checkin-data';
+
 const CheckInList = () => {
-  const checkIns = [
-    { name: '佐藤 健太', time: '14:00', room: '203' },
-    { name: '山田 優子', time: '15:30', room: '101' },
-    { name: '鈴木 康介', time: '16:45', room: '304' },
-  ];
+  const { checkIns } = useCheckInData();
 
   return (
     <div className="rounded-lg border bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">

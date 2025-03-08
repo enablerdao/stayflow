@@ -1,37 +1,9 @@
 
 import { cn } from '@/lib/utils';
+import { useActivityData } from '@/hooks/use-activity-data';
 
 const ActivityTable = () => {
-  const activities = [
-    {
-      action: '予約が作成されました',
-      user: '田中 誠',
-      time: '25分前',
-      status: '完了',
-      statusColor: 'green',
-    },
-    {
-      action: 'ルームサービス リクエスト',
-      user: '鈴木 美咲',
-      time: '1時間前',
-      status: '進行中',
-      statusColor: 'yellow',
-    },
-    {
-      action: 'お客様チェックアウト',
-      user: '佐々木 隆',
-      time: '3時間前',
-      status: '完了',
-      statusColor: 'green',
-    },
-    {
-      action: '予約がキャンセルされました',
-      user: '高橋 直子',
-      time: '5時間前',
-      status: 'キャンセル',
-      statusColor: 'red',
-    },
-  ];
+  const { activities } = useActivityData();
 
   return (
     <div className="mt-6 rounded-lg border bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
