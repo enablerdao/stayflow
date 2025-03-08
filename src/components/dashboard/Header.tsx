@@ -16,12 +16,14 @@ const Header = ({ toggleMobileMenu, toggleSidebar }: HeaderProps) => {
           <button
             onClick={toggleMobileMenu}
             className="rounded-md p-1.5 text-gray-400 hover:bg-gray-100 lg:hidden dark:hover:bg-slate-800"
+            aria-label="モバイルメニューを開く"
           >
             <Menu className="h-6 w-6" />
           </button>
           <button
             onClick={toggleSidebar}
             className="hidden rounded-md p-1.5 text-gray-400 hover:bg-gray-100 lg:flex dark:hover:bg-slate-800"
+            aria-label="サイドバーを切り替える"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
@@ -38,7 +40,10 @@ const Header = ({ toggleMobileMenu, toggleSidebar }: HeaderProps) => {
             />
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
           </div>
-          <button className="rounded-full bg-gray-100 p-1.5 text-gray-600 hover:bg-gray-200 dark:bg-slate-800 dark:text-gray-300 dark:hover:bg-slate-700">
+          <button 
+            className="rounded-full bg-gray-100 p-1.5 text-gray-600 hover:bg-gray-200 dark:bg-slate-800 dark:text-gray-300 dark:hover:bg-slate-700"
+            aria-label="通知"
+          >
             <Bell className="h-5 w-5" />
           </button>
           <UserProfile />

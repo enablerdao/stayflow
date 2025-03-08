@@ -31,6 +31,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }: SidebarProps) => {
         <button
           onClick={toggleSidebar}
           className="hidden rounded-md p-1.5 text-gray-400 hover:bg-gray-100 lg:block dark:hover:bg-slate-800"
+          aria-label="サイドバーを切り替える"
         >
           <ChevronLeft
             className={cn('h-5 w-5 transition-transform duration-300', !sidebarOpen && 'rotate-180')}
