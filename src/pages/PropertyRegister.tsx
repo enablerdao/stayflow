@@ -14,6 +14,7 @@ import BasicInfoSection from '@/components/property/BasicInfoSection';
 import PropertyDetailsSection from '@/components/property/PropertyDetailsSection';
 import ImageUploader from '@/components/property/ImageUploader';
 import FadeIn from '@/components/animations/FadeIn';
+import EmailSignUpForm from '@/components/auth/EmailSignUpForm';
 
 const PropertyRegister = () => {
   const navigate = useNavigate();
@@ -180,31 +181,41 @@ const PropertyRegister = () => {
           
           <FadeIn direction="up" delay={200}>
             <p className="max-w-md text-center text-lg text-gray-600 dark:text-gray-300">
-              物件を登録するには、ログインまたはアカウント登録が必要です。アカウントにログインすると、すべての機能をご利用いただけます。
+              物件を登録するには、ログインまたはアカウント登録が必要です。初めての方はメールアドレスを入力するだけで簡単に登録できます。
             </p>
           </FadeIn>
           
           <FadeIn direction="up" delay={300}>
-            <div className="mt-4 grid w-full max-w-xs gap-4">
-              <Button 
-                size="lg" 
-                onClick={() => navigate('/login')}
-                className="group relative overflow-hidden transition-all duration-300 hover:shadow-lg"
-              >
-                <div className="absolute inset-0 bg-primary/10 opacity-0 transition-opacity group-hover:opacity-100" />
-                <LogIn className="mr-2 h-5 w-5" />
-                ログイン
-                <ArrowRight className="ml-1 h-4 w-4 transform transition-transform group-hover:translate-x-1" />
-              </Button>
+            <div className="mt-4 w-full max-w-sm">
+              <EmailSignUpForm />
               
-              <Button 
-                variant="outline" 
-                size="lg"
-                onClick={() => navigate('/dashboard')}
-                className="group border-2 transition-all duration-300 hover:bg-background/80"
-              >
-                ダッシュボードに戻る
-              </Button>
+              <div className="my-6 flex items-center">
+                <div className="flex-1 border-t border-gray-300 dark:border-gray-700"></div>
+                <span className="mx-4 text-sm text-gray-500 dark:text-gray-400">または</span>
+                <div className="flex-1 border-t border-gray-300 dark:border-gray-700"></div>
+              </div>
+              
+              <div className="grid gap-4">
+                <Button 
+                  size="lg" 
+                  onClick={() => navigate('/login')}
+                  className="group relative overflow-hidden transition-all duration-300 hover:shadow-lg"
+                >
+                  <div className="absolute inset-0 bg-primary/10 opacity-0 transition-opacity group-hover:opacity-100" />
+                  <LogIn className="mr-2 h-5 w-5" />
+                  既存アカウントでログイン
+                  <ArrowRight className="ml-1 h-4 w-4 transform transition-transform group-hover:translate-x-1" />
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  onClick={() => navigate('/dashboard')}
+                  className="group border-2 transition-all duration-300 hover:bg-background/80"
+                >
+                  ダッシュボードに戻る
+                </Button>
+              </div>
             </div>
           </FadeIn>
           
