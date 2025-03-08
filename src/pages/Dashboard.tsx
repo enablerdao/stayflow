@@ -48,10 +48,12 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-screen bg-background">
-      {/* サイドバー */}
-      <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+      {/* サイドバー - デスクトップ用 (lg以上の画面サイズでのみ表示) */}
+      <div className="hidden lg:block">
+        <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+      </div>
 
-      {/* モバイルメニューのオーバーレイ - モバイルのみ表示 */}
+      {/* モバイルメニューのオーバーレイ - モバイル時のみ表示 */}
       {mobileMenuOpen && (
         <div 
           className="fixed inset-0 z-[100] bg-black/50 lg:hidden" 
