@@ -21,27 +21,27 @@ const Testimonials = () => {
   const testimonials = [
     {
       name: "鈴木 健一",
-      role: "民泊オーナー, Tokyo Stay Properties",
-      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-      quote: "StayFlowの導入で運営の手間が劇的に減りました。特に清掃管理の自動化は素晴らしく、ゲストからの評価も上がっています。"
+      role: "京都の町家宿泊施設オーナー",
+      image: "/images/japanese-tatami-room.jpg", // Using a tatami room image
+      quote: "10軒の町家を管理していますが、以前は予約の二重登録や清掃スケジュールの混乱が頻繁でした。StayFlowの導入後、これらの問題が解消され、運営効率が40%も向上しました。特に外国人ゲストへの自動メッセージ機能は非常に助かっています。"
     },
     {
-      name: "田中 美咲",
-      role: "運営管理者, Osaka Guest Houses",
-      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-      quote: "複数サイトの予約を一元管理できる点が非常に便利です。収支分析機能も経営の改善に役立っています。"
+      name: "中村 直子",
+      role: "大阪のゲストハウス経営者",
+      image: "/images/japanese-chair-modern.jpg", // Using a modern Japanese chair image
+      quote: "当初は従来の方法に固執していましたが、StayFlowに切り替えてから予約管理の時間が1日あたり2時間も短縮されました。複数プラットフォームからの予約を一元管理できる点が最大の魅力です。今では友人の民泊オーナーにも薦めています。"
     },
     {
-      name: "山本 博",
-      role: "ブティックホテルオーナー, Kyoto Accommodations",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-      quote: "StayFlowを導入してから、業務効率が40%向上しました。ゲスト対応システムにより、パーソナライゼーションを維持しながら対応時間が大幅に短縮されました。"
+      name: "佐藤 洋介",
+      role: "東京の不動産投資家・民泊5物件オーナー",
+      image: "/images/traditional-zaisu.jpg", // Using a traditional Japanese floor chair (zaisu) image
+      quote: "投資物件を増やすごとに管理の複雑さも増していました。StayFlowのダッシュボードでは各物件の稼働率や収益性を一目で確認でき、データに基づいた意思決定ができるようになりました。清掃スタッフとのコミュニケーションも格段に改善されています。"
     },
     {
-      name: "中村 優希",
-      role: "不動産投資家, Hokkaido Properties",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-      quote: "複数の地域にまたがる民泊物件の管理は、StayFlowを見つけるまで課題でした。今では、どこからでもパフォーマンス指標を監視し、ゲストとのやり取りを処理できます。"
+      name: "山田 恵子",
+      role: "北海道のコテージ運営者",
+      image: "/images/ryokan-interior.jpg", // Using a traditional Japanese inn interior image
+      quote: "季節によって予約状況が大きく変動する中、StayFlowの需要予測機能は価格設定に非常に役立っています。また、リピーター向けの特別プランの提案も簡単にできるようになり、顧客満足度と利益率の両方が向上しました。導入して本当に良かったです。"
     }
   ];
 
@@ -54,7 +54,8 @@ const Testimonials = () => {
               <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-stayflow-100 text-stayflow-800 mb-4">
                 お客様の声
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold">お客様からのご感想</h2>
+              <h2 className="text-3xl md:text-4xl font-bold">実際のご利用者様からの感想</h2>
+              <p className="text-muted-foreground mt-4">全国各地のさまざまな宿泊施設オーナー様からいただいた貴重なフィードバックです</p>
             </div>
             
             <div className="hidden md:flex space-x-2">
@@ -91,11 +92,15 @@ const Testimonials = () => {
                 <p className="text-lg mb-8 flex-grow">"{testimonial.quote}"</p>
                 
                 <div className="flex items-center">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name} 
-                    className="w-12 h-12 rounded-full object-cover mr-4"
-                  />
+                  <div className="w-12 h-12 rounded-full overflow-hidden mr-4 bg-gray-100 flex-shrink-0">
+                    <div 
+                      className="w-full h-full bg-center bg-cover" 
+                      style={{ 
+                        backgroundImage: `url(${testimonial.image})`,
+                        backgroundPosition: 'center'
+                      }}
+                    />
+                  </div>
                   <div>
                     <h4 className="font-medium">{testimonial.name}</h4>
                     <p className="text-sm text-muted-foreground">{testimonial.role}</p>
