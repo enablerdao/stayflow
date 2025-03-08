@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
-import { Home, Check, AlertCircle } from 'lucide-react';
+import { Home, Check, AlertCircle, LogIn, ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Header from '@/components/dashboard/Header';
 import Sidebar from '@/components/dashboard/Sidebar';
@@ -13,6 +13,7 @@ import BulkTextProcessor from '@/components/property/BulkTextProcessor';
 import BasicInfoSection from '@/components/property/BasicInfoSection';
 import PropertyDetailsSection from '@/components/property/PropertyDetailsSection';
 import ImageUploader from '@/components/property/ImageUploader';
+import FadeIn from '@/components/animations/FadeIn';
 
 const PropertyRegister = () => {
   const navigate = useNavigate();
@@ -163,19 +164,60 @@ const PropertyRegister = () => {
 
   if (!user) {
     return (
-      <div className="flex h-screen flex-col items-center justify-center p-4">
-        <AlertCircle className="mb-4 h-12 w-12 text-destructive" />
-        <h1 className="mb-2 text-2xl font-bold">ログインが必要です</h1>
-        <p className="mb-6 text-center text-muted-foreground">
-          物件を登録するには、ログインまたはアカウント登録が必要です。
-        </p>
-        <div className="flex gap-4">
-          <Button onClick={() => navigate('/login')}>
-            ログイン
-          </Button>
-          <Button variant="outline" onClick={() => navigate('/dashboard')}>
-            ダッシュボードに戻る
-          </Button>
+      <div className="flex min-h-screen flex-col bg-gradient-to-b from-blue-50 to-indigo-50 dark:from-slate-900 dark:to-slate-800">
+        <div className="mx-auto flex w-full max-w-lg flex-col items-center justify-center gap-6 px-4 py-16">
+          <FadeIn direction="up">
+            <div className="rounded-full bg-red-100 p-4 dark:bg-red-900/30">
+              <AlertCircle className="h-12 w-12 text-red-500 dark:text-red-400" />
+            </div>
+          </FadeIn>
+          
+          <FadeIn direction="up" delay={100}>
+            <h1 className="text-center text-3xl font-bold text-gray-900 dark:text-white">
+              ログインが必要です
+            </h1>
+          </FadeIn>
+          
+          <FadeIn direction="up" delay={200}>
+            <p className="max-w-md text-center text-lg text-gray-600 dark:text-gray-300">
+              物件を登録するには、ログインまたはアカウント登録が必要です。アカウントにログインすると、すべての機能をご利用いただけます。
+            </p>
+          </FadeIn>
+          
+          <FadeIn direction="up" delay={300}>
+            <div className="mt-4 grid w-full max-w-xs gap-4">
+              <Button 
+                size="lg" 
+                onClick={() => navigate('/login')}
+                className="group relative overflow-hidden transition-all duration-300 hover:shadow-lg"
+              >
+                <div className="absolute inset-0 bg-primary/10 opacity-0 transition-opacity group-hover:opacity-100" />
+                <LogIn className="mr-2 h-5 w-5" />
+                ログイン
+                <ArrowRight className="ml-1 h-4 w-4 transform transition-transform group-hover:translate-x-1" />
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => navigate('/dashboard')}
+                className="group border-2 transition-all duration-300 hover:bg-background/80"
+              >
+                ダッシュボードに戻る
+              </Button>
+            </div>
+          </FadeIn>
+          
+          <FadeIn direction="up" delay={400}>
+            <div className="mt-6 rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-700 dark:border-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+              <p className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+                アカウントを作成すると、物件情報の管理や予約の確認が簡単に行えます。
+              </p>
+            </div>
+          </FadeIn>
         </div>
       </div>
     );
