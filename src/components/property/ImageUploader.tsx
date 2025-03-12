@@ -69,6 +69,10 @@ const ImageUploader = ({ selectedFiles, onFilesChange }: ImageUploaderProps) => 
                     src={URL.createObjectURL(file)}
                     alt={`アップロード画像 ${index + 1}`}
                     className="h-full w-full object-cover"
+                    onError={(e) => {
+                      console.error('Image loading error:', e);
+                      e.currentTarget.src = '/placeholder.svg';
+                    }}
                   />
                   <button
                     type="button"
